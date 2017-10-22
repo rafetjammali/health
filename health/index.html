@@ -1,0 +1,2360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device=width,intial=scale=1">
+    <title>صحتي</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  
+ <link rel="stylesheet" href="themes/AndroidHoloDarkLight.css" />
+ <link rel="stylesheet" href="themes/jqm-docs.css" />
+ <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>     
+   
+	  
+    <style type="text/css">
+       .ui-li-static.ui-collapsible > .ui-collapsible-heading{
+         margin: 0;}
+		
+       .ui-li-static.ui-collapsible{
+        padding: 0;}
+		
+		.ui-listview > .ui-li-static, .ui-listview > .ui-li-divider, .ui-listview > li > a.ui-btn {
+        text-align: right;
+		padding:10px;}
+
+           .ui-li-static{
+   font-size:48px}
+}		
+    </style>
+
+    <script type="text/javascript">
+
+    var panel='<div data-role="panel" data-position="right" data-swipe-close="true" data-position-fixed="true" data-display="push" id="nav-panel" data-theme="b"><ul data-role="listview"><li><a href="#pageHome" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left">الرئسية</a></li><li><a href="#amradh" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left">الأمراض</a></li><li><a href="#aradh" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left">الأعراض</a></li><li><a href="#ilej" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left">العلاج</a></li><li><a href="#calculator" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left">تقييم الوزن الطبيعي</a></li></ul></div>';
+
+        $(document).one('pagebeforecreate',function(){
+             $.mobile.pageContainer.prepend(panel);
+             $("#nav-panel").panel().enhanceWithin();
+        })
+    </script>
+    <script type="text/javascript">
+       function computeBMI() {
+            // user inputs
+            var height = Number(document.getElementById("height").value);
+            var heightunits = document.getElementById("heightunits").value;
+            var weight = Number(document.getElementById("weight").value);
+            var weightunits = document.getElementById("weightunits").value;
+
+
+            //Convert all units to metric
+            if (heightunits == "inches") height /= 39.3700787;
+            if (weightunits == "lb") weight /= 2.20462;
+
+            //Perform calculation
+
+            //        var BMI = weight /Math.pow(height, 2)*10000;
+            var BMI = Math.round(weight / Math.pow(height, 2) * 10000);
+
+            //Display result of calculation
+            document.getElementById("output").innerText = Math.round(BMI * 100) / 100;
+
+            var output = Math.round(BMI * 100) / 100
+            if (output < 18.5)
+                document.getElementById("comment").innerText = "أقل من الوزن المثالي ";
+            else if (output >= 18.5 && output <= 25)
+                document.getElementById("comment").innerText = "عادي";
+            else if (output >= 25 && output <= 30)
+                document.getElementById("comment").innerText = "بدين";
+            else if (output > 30)
+                document.getElementById("comment").innerText = "زائد الوزن ";
+             
+        }
+
+    </script>
+</head>
+
+<body dir="rtl">
+   <div data-role="page" id="pageHome" data-theme="a" >
+
+      <div data-role="header">
+                     <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>
+       </div>
+        <div data-role="main" class="ui-content">   
+              <p><h1>
+		      صحتي هي تطبيق مفتوح لكل المستخدمين للتعرف على الأمراض الشائعة وكيفية الوقاية منها وعلاجها 
+			  </h1></p>
+			  <p><h2>يسعى هذا التطبيق لتوعية المستخدم 
+              و الوقاية خيرٌ من العلاج 
+			  </h2></p>
+			  <h3>أدخل الأعراض ،إسم المرض أو وصفه في قائمة البحث للحصول على المرض أو الاقتراحات </h3>
+			  <p>
+			  تحذير:إذا لديك ظرف صحي خطيرالرجاء طلب المساعدة الطبية حالآ
+			  </p>
+			  <img src="img/back.jpg" alt="first pic"  width="100%">
+        </div>      
+    </div>
+<!-- recherche fel amradh -->
+     <div data-role="page" id="amradh">
+            <div data-role="header">
+                <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>
+            </div>
+        <div data-role="main" class="ui-content">
+                 
+               <form class="ui-filterable">
+                   <input id="searchInput" type="search" placeholder="ابحث عن المرض ">
+               </form>
+               <ul data-role="listview" data-input="#searchInput" data-filter="true">
+						<li data-filtertext="الزكام الرشح زكام العُطاس الصداع و الحمى"><a href="#mradh1" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"> <h2>الزكام</h2> </a></li>
+						<li data-filtertext="انف اذن وحنجرة التهاب الحلق إلتهاب البلعوم"><a href="#mradh2" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2> التهاب الحلق</h2></a></li>
+						<li data-filtertext="الانفلونزا معدٍ  العطس أو السعالالجهاز التنفسي"><a href="#mradh3" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>الانفلونزا</h2></a></li>
+						<li data-filtertext="التهاب الاذن أنف أذن حنجرة   الإلتهاب"><a href="#mradh4" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>التهاب الاذن</h2></a></li>
+						<li data-filtertext=" ربو ض تنفسي تحسسي مزمن  الشعب الهوائية"><a href="#mradh5" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>ربو</h2></a></li>
+						<li data-filtertext="روماتيزم الروماتيزمية المفاصل العظام رثِّية"><a href="#mradh6" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>روماتيزم</h2></a></li>
+						<li data-filtertext="أمراض الجهاز الهضمي جدار المعدة الداخلي بطانة المعدة التهاب المعدةالإلتهاب "><a href="#mradh7" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>التهاب المعدة</h2></a></li>
+						<li data-filtertext="انقطاع النفس أمراض الجهاز التنفسي "><a href="#mradh8"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>انقطاع النفس</h2></a></li>
+						<li data-filtertext=" الزهايمر زهايمر اضطراب الدماغ فقدان الذاكرة "><a href="#mradh9"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>الزهايمر</h2></a></li>
+						<li data-filtertext="التهاب الكبد عدوى فيروسية أمراض باطنية  تلف الخلايا الكبدية"><a href="#mradh10"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>التهاب الكبد</h2></a></li>
+						<li data-filtertext="عسر الهضم  اعلى البطن الحرقة المعدة"><a href="#mradh11" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>عسر الهضم</h2></a></li>
+						<li data-filtertext="صداع التوتر ألم   الرأس  انقباض العضلات جمجمة"><a href="#mradh12"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>صداع التوتر</h2></a></li>
+						<li data-filtertext=" الدماغ عضلية قصيرة  نبضات تشنجات"><a href="#mradh13"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>صرع</h2></a></li>
+						<li data-filtertext="صلع فقدان الشعر لحات"><a href="#mradh14"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>صلع</h2></a></li>
+						<li data-filtertext="قصور القلب فشل القلب الاحتقاني العضلة القلبية ضخ الدم "><a href="#mradh15"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>قصور القلب</h2></a></li>
+						<li data-filtertext=" قشرة الراس طبقة بيضاء خصيلات الشعر "><a href="#mradh16"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>قشرة الراس</h2></a></li>
+						<li data-filtertext="رمد ربيعي التهاب تورم  الانسجة المبطنة للجفون  بياض العين"><a href="#mradh17"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>رمد ربيعي</h2></a></li>
+						<li data-filtertext="لعدوى البكتيرية القناة التنفسية الأطفال الرضع الأطفال الصغار لبكتيريا"><a href="#mradh18"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>سعال ديكي</h2></a></li>
+						<li data-filtertext="ارتفاع نسبة الدهون  زيادة وزن الجسم الدهون"><a href="#mradh19"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>السمنة</h2></a></li>
+						<li data-filtertext="سرطان الورم الخبيث الاورام الخبيثة"><a href="#mradh20"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>سرطان</h2></a></li>
+						<li data-filtertext="الاضطراب المزمن السكري هرمون الانسولين  البنكرياس الغلوكوز"><a href="#mradh21"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>السكري</h2></a></li>
+				<li data-filtertext="awcx bcwx c d e f g h i g k l m n o p a b q r s t u v x y z"><a href=""class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/ziwen.png" width="42" height="42"><h2>404</h2></a></li>
+				</ul>
+		</div>
+			   <div data-role="footer" data-position="fixed">
+                 <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          
+            </div>
+     </div>
+
+<!-- al 2amradh -->
+<div data-role="page" id="mradh1" >
+			 <div data-role="header">
+				 <h1>صحتي </h1>
+						<a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>    
+			 </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>الزكام</h1>
+				 <article>
+				 الزكام أو ما يعرف بالرشح هو عدوى فيروسية شائعة الانتشار و من أهم الفيروسات المُسببة للعدوى الرينوفيروس (Rhinovirus) ، التي تؤثر في القناة التنفسية العلوية ( الأنف والحنجرة ) و قد يحدث التهاب في الرئتين أيضاً يتسبب بأعراض شائعة كالسعال ، العُطاس ، التعب، الصداع و الحمى في بعض الحالات  . يزداد المرض في الشتاء والخريف ، و يصيب الأطفال بنسبة أكثر من البالغين ، يتعافى غالبية المُصابين بالزكام خلال اسبوع واحد الى اسبوعين. تتم العدوى عن طريق دخول الفيروس المُسبب للزكام عن طريق الفم , الأنف والعينين وينتشر خلال القطيرات الهوائية الناجمة عن سعال , عطاس أو كلام المُصاب بالعدوى وقد ينتقل عن طريق الاتصال المباشر بالمُصاب او مشاركته لأدواته 
+				 </article>
+				 <h3>أسباب الزكام </h3>
+				 <article>
+				   ان السبب الرئيسي للزكام هو العدوى الفيروسية و التي قد تنتقل من شخص مصاب لأخر من خلال : 
+					لمس سطح ملوث بالفيروس و ثم لمس الأنف أو العين .
+					استنشاق الهواء الملوث بالفيروس المسبب للمرض، عن طريق عطاس أو سعال شخص مصاب.
+					لمس يدي شخص مصاب بالزكام. 
+					استعمال الأدوات الخاصة بالشخص المصاب أثناء إصابته بالزكام‏ .
+					كما أن هنالك العديد من العوامل التي تزيد من خطورة الإصابة و منها:
+
+					 الاطفال الرضع والاطفال دون سن المدرسة بالزكام اكثر من البالغين .
+					أمراض المناعة تزيد احتمالية الاصابة .
+					التدخين يضعف المناعة ويزيد من احتمالية الاصابة .
+					يزيد المرض في المناطق المزدحمة و الفقيرة .
+					تشيع الاصابة بالزكام خلال فصل الشتاء والخريف
+					</article>
+				 <h3>الوقاية من زكام</h3>
+                 <article>
+				 <p>للوقاية من الزُكامْ يوصى باتباع الإجاءات التالية </p> 
+				عدم مخالطة الأشخاص المصابين بالعدوى 
+				المحافظة على نظافة اليدين دائماً و غسلهما بشكل مستمر . 
+				تجنب التواصل مع المصابين بالعدوى ، و إن لزم ذلك فيجب ارتداء أقنعة الوجه كتدبير وقائي في حالة الإقتراب من شخص مصاب .
+				المحافظة على نظافة المنزل باستمرار عند اصابة احد من افراد العائلة بالزكام .
+				استخدام المناديل الورقية باستمرار خصوصا عند العطاس او السعال ومن ثم التخلص منها وغسل اليدين بعدها 
+				 </article>				 
+				 <img src="img/zoukem1.jpg" alt="zoukem"  width="100%"> 
+            </div>
+            <div data-role="footer" data-position="fixed">
+                 <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>              
+            </div>
+ </div>
+<div data-role="page" id="mradh2">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">    
+                 <h1>ماهو التهاب الحلق</h1>
+				 <article> 
+				    يُعرَف التهاب الحلق أيضاً يإلتهاب البلعوم (و هو الانبوب الذي ينقل الطعام الى المريء والهواء للقصبة الهوائية)، و ينتج عادة عن الاصابة بعدوى فيروسية او بكتيرية تسبب تهيجاً في الأنسجة المحيطة بالحلق مما يُسبب ألم في الحلق، يزداد مع البلع.
+					تكثر الاصابة به في فصل الشتاء، و يرتبط  بالعديد من المسببات له وأكثرها شيوعاً الإصابه بإلتهابات الجهاز التنفسي مثل الزكام أو الإصابة بفيروس الإنفلونزا.
+					وعادةً تزول أعراض المرض خلال اسبوع دون تدخل طبي يذكر
+				 </article>
+				 <h3>اسباب التهاب الحلق</h3>
+				 <article>
+				 ينتج التهاب الحلق بسبب:
+				عدوى بكتيرية مثل العقـدية (Streptococcus) , او خناق ( Diphtheria ) (و هو مرض بكتيري معد يسبب التهاب حاد  ، و ساهم اللقاح في التخفيف من حالات الوفاة الناتجة عن الخناق ) .
+				عدوى فيروسية, مثل الانفلونزا, او فيروس ايبشتاين- بار (Epstein - Barr virus) .
+				التعرض لمواد مهيجة مثل دخان السجائر او نتيجة حساسية .
+				التعرض لإصابة على الرقبة .
+				الإصابة بأمراض الجهاز المناعي .
+				التحسس من بعض المواد الكيماوية السامة .
+				الإصابة بالزكام أو النزلات الصدرية والإلتهابات الرئوية
+				 </article>
+				 <h3>الوقاية من التهاب الحلق</h3>
+				 <article>
+				 عدم التواجد حول الاشخاص الذين يعانون من التهاب في الحلق 
+				المحافظة على النظافة الشخصية
+				عدم مشاركة الاغراض الشخصية مع الشخص المصاب
+				عدم لمس السطوح التي يوجد عليها عدوى
+				 </article>
+				 <img src="img/iltihebAl7alek.jpg" alt="iltihebAl7alek"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                
+            </div>
+ </div> 
+<div data-role="page" id="mradh3">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">         
+                 <h1>ماهو انفلونزا</h1>
+				 <article>
+				 الانفلونزا هي مرض معدٍ ( ينتقل من خلال رذاذ العطس أو السعالأو استخدام الأدوات الخاصة بالمصاب ) يصيب الجهاز التنفسي و يحدث نتيجة عدوى فيروسية، تتسبب الإنفلونزا بالحمى ، التعب و الصداع ، و تشيع الإصابة بها في فصل الشتاء . تُصيب الإنفلونوا جميع الفئات العمرية و لكن قد تشكل خطراً عند كبار السن ، و خاصةً الذين تزيد أعمارهم عن 65 عاماً حديثي الولادة و بعض المصابين بالأمراض المزمنة كالسكري و النساء الحوامل . الإنفلونزا هي عدوى فيروسية لذلك لا يمكن استعمال المضادات الحيوية في العلاج ، كما و أنه تم تطوير لقاح خاص للإنفلونزا و يُنصح به للمرضى الأكثر عرضة للإصابة كمرضى السكري ، مرضى القلب و الكبد ، و مرضى جهاز المناعة .
+				الإنفلونزا هي عدوى شائعة تصيب العديد من الأشخاص خلال السنة ، وقديماً كانت من الأمراض الوبائية التي تسببت بالعديد من حالات الوفاة و لكن في الوقت الحالي تم السيطرة عليها من خلال اللقاح المخصص لها . 
+				و الإنفلونزا تختلف عن الرشح ، حيث أن أعراضها تستمر لمدة أطول (تصل إلى اسبوع و الرشح يومين) ، و تسبب ارتفاع أكثر في درجات الحرارة ، كما و أنها تتسبب بتعب و ألم في العضلات ، و أعرضاها تبدأ بشعور في جفاف الأنف و الحلق أما الرشح فتبدأ أعراضه بسيلان الأنف غالباً
+				 </article>
+				 <h3>اسباب انفلونزا</h3>
+				 <article>
+				 من الأسباب المعروفة و التي قد تؤدي للإصابة بالانفلونزا:
+					الأنفلونزا تنتج عن الإصابة بعدوى فيروسية ( مثل فيروس A , B and C ) و بعضها أكثر خطورة مثل H1N1 ( التي سببت انفلونزا الخنازير ) ، حيث تنتقل العدوى من خلال التعرض لرذاذ السعال ، العطاس ، أو استعمال أدوات الشخص المصاب . 
+					حيث أن الأشخاص الأكثر عرضة للإصابة :
+					- العاملون في القطاع الصحي و المستشفيات المختلفة .
+					- لأشخاص المقيمون مع المصاب بالإنفلونزا .
+					- كبار السن الذين تزيد أعمارهم عن 65 عاماً .
+					- المصابون بأمراض مزمنة أو خلل في عمل جهاز المناعة ( نتيجة الإصابة بمرض معين أو نتيجة تناول دواء معين )
+				  </article>
+				  <h3>الوقاية من انفلونزا</h3>
+				 <article>
+				 يُنصح بأخذ مطعوم الانفلونزا سنويًا (لأنه هذه الفيروسات تقوم بطفرات معينة كل سنة حتت تتمكن من إحداث العدوى ) خصوصاً الاشخاص الأكثر عرضة للإصابة أو لحدوث المضاعفات و هم :
+				- كبار السن الذين تزيد أعمارهم عن 65 عاماً .
+				- جميع العاملين في القطاع الصحي و الذين يتعاملون مع مختلف المرضى .
+				- المرضى الذين يعانون من أمراض مزمنة كالربو أو أمراض تزيد من خطر الإصابة كاختلال في جهاز المناعة .
+				- السفر لمناطق مختلفة و خاصة التي تنتشر فيها الإنفلونزا .
+				- يٌوصى بإعطائه للحوامل
+				 </article>
+				 <img src="img/cold.jpg" alt="cold"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+             <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>  			
+            </div>
+ </div>	 
+<div data-role="page" id="mradh4">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>ماهو التهاب الاذن</h1>
+				 <article>
+				 <p>التهاب الاذن هو المُصطلح العام الذي يُعبر عن حالة الإلتهاب التي تصيب الأذن و قد يكون</p>
+				- التهاب الاذن الداخلية ( يؤثر في الاذن الوسطى الواقعة خلف طبلة الاذن )
+				- التهاب الأذن الوسطى و هو غالباً يصيب الأطفال 
+				- التهاب الأذن الخارجية ( يرثر في الجزء الخارجي للاذن وقناة الاذن وينتشر الى العظام والغضاريف الاذنية في الحالات المزمنة منه و يُعرف بأذن السباح ).
+				ويُصنف الى حاد مؤلم تظهر علاماته بشكل مفاجيء ولمدة زمنية قصيرة او مزمن مُتكرر تستمر علاماته لمدة زمنة مُطولة وقد يتسبب بتضرر الأذن الدائم
+				 </article>
+				 <h3>اسباب التهاب الاذن</h3>
+				 <article>
+				 الإصابة بالعدوى الفيروسية ، البكتيرية أو الفطرية .
+				الاصابة بإلتهابات القصبات الهوائية العلوية بشكل متكرر.
+				الإصابة بأمراض الجهاز المناعي .
+				قد تلعب الوراثة دورا في الإصابة بهاذا المرض .
+				وجود عيوب خلقيه في القناة السمعية .
+				إدمان الحكول .
+				الإصابة بمرض السكري المزمن قد يزيد من فرصه حدوث هذا الإلتهاب .
+				عرض أو أثر جانبي لعلاجات دوائية وخصوصا علاجات التشنجات ( الصرع) 
+				 </article>
+				 <h3>تشخيص التهاب الاذن</h3>
+				 <article>
+				 الفحص السريري الشامل و أخذ السيرة المرضية . 
+				فحص القناة السمعية باستخدام معدات متخصصة مثل (فحص حركة طبلة الاذن) .
+				بعض الصور الشعاعية للأذن 
+				 </article>
+				  <img src="img/iltihebAlOdhon.jpg" alt="iltihebAlOdhon"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+               <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                 
+            </div>       
+ </div>	 
+<div data-role="page" id="mradh5">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو ربو</h1>
+				 <article>
+					الربو مرض تنفسي تحسسي مزمن يتصف بتضيق الشعب الهوائية و يُسبب زيادة في الافرازات المخاطية ، مع تقلص في العضلات وتضيق في القصبات الهوائية، مسبباً ضيقاً في التنفس مع صفير وسعال في شكل متكرر و تزداد هذه الأعراض سوءأً أثناء الليل أو عند القيام بأي مجهود . الربو مرض شائع وقد يحدث المرض في أية عمر ولكن غالبا يظهر في الطفولة . ، وأثبتت الدراسات أن الجزء الأكبر 
+					من التحكم بالربو يعود الى المريض نفسه، حيث وجدت أنالمرضى الأكثر تحكماً بالمرض تابعوا بانتظام عيادة طبيب متخصص في علاج الربو، وداوموا على متابعة علاجهم بانتظام
+				 </article>
+				 <h3>اسباب ربو</h3>
+				 <article>
+				<p> من الأسباب التي تساعد على حدوث نوبة الربو : </p>
+				عوامل وراثية حيث يزداد المرض بحال وجود تاريخ عائلي .
+				 الربو له علاقة بأمراض الحساسية حيث لوحظ وجود مواد معينة تفاقم الأعراض كالاشجار ، بعض انواع المكسرات ، الصبغات , مواد كيميائية .
+				التدخين والتدخين السلبي .
+				بعض الأدوية كالاسبرين Aspirin و حاصرات بيتا B- Blockers .
+				عدوى الجهاز التنفسي العلوي : مثل حالات الزكام والإنفلونزا.
+				عدوى الجهاز التنفسي السفلي: مثل الإلتهاب الرئوي وإلتهاب القصبات.
+				التوتر و الإنفعالات النفسية . 
+				تقلبات الطقس ، و خاصة التعرض للطقس البارد
+				 </article>
+				 <h3>الوقاية من ربو</h3>
+				 <article>
+				  <p>للوقاية من مرض الربو:</p>
+					لا يوجد طريقة معينة حيث انه في الغالب ناتج من اسباب وراثية لا يمكن تعديلها ولكن يمكن الوقاية من حدوث النوبات عن طريق تخفيف التدخين و عدم التعرض للمادة المحفزة و تجنب التعرض للهواء البارد .
+					ممارسة الرياضة وتخفيف الوزن عند الاشخاص المصابين بالسمنة
+				 </article><br>
+				  <img src="img/Robo.jpg" alt="Robo"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                 <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>               
+            </div>
+      </div>	  
+<div data-role="page" id="mradh6">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو روماتيزم</h1>
+				 <article>
+				 1- رثِّية : الروماتيزم أو اضطراب الروماتيزمية هو مصطلح غير محدد للمشاكل الطبية التي تؤثر على المفاصل والأنسجة الضامة. 2- رثِّية : اسم غير دقيق يطلق على كل مرض، أو ألم في المفاصل والعضلات والعظام والأ
+				 ربطة والأوتار والأعصاب، كما يطلق على آلام الأنسجة الضامة القريبة من المفاصل؛ كالتهاب الأكياس الزليلية، وألم عرق النسا، والتهاب غلاف الوتر، وهي آلام مزمنة في الغالب.
+				 </article>
+				 <h3>اسباب روماتيزم</h3>
+				 <article>			  
+					قد يكون سبب المرض 1 التهابيا حاداً أي مصحوباً بألم شديد وإحمرار وسخونة وورم، وهو ما يحدث في الحمى الرثية، أو ما يحدث في مرض النقرس، 2- اصابات عنيفة (او حوادث مباشرة) التي تحدث مباشرة على المفصل، أو من جراء امتصاص السموم من بؤرات قيحية في جذور الأسنان، أو جيوب الأنف، أو زوائد الحلق وغيرها، أو من بؤرات في الجهاز التناسلي في مرض السيلان المزمن، 3- قد يكون المرض مزمناً؛ إذ يتخلف عن التهاب حاد تعقبه تغييرات في الأنسجة، أو يبدأ مزمناً. وهو على نوعين أحدهما * ضموري؛ ويتميز بالتهاب وتغييرات انحلالية في تراكيب المفصل، *والآخر تضخمي؛ تؤدي فيه التغييرات الانحلالية إلى تكون زوائد شوكية عظمية في داخل المفصل، وكلا النوعين قد يؤدي إلى تشويه في هيئة المفصل يسمى بالالتهاب المفصلي التشويهي، ومن أسباب هذه الأنواع المزمنة من المرض، التعرض لتقلبات الجو, الاضطرابات النفسية واختلاف إفرازات الغدد الصم. وأمراض المفاصل قد تقتصر على مفصل واحد، أو تشمل عدة مفاصل، ومنها ما يختار ال
+					مفاصل الكبرى، أو الصغرى، أو يمسها جميعاً، ومنها ما يقتصر التغييرات المرضية فيه على تراكيب المفصل بذاتها ومنها ما تتعدى تلك التراكيب إلى الأنسجة المحيطة بالمفصل
+				 </article>
+				 <h3>تشخيص روماتيزم</h3>
+				 <article>
+				 يتم التشخيص عن طريق الطبيب وذلك بفحصالجسم, والفحوصات المخبرية والتصوير وغيرها الكثير من الفحوصات التي قد تساعد الطبيب في التشخيص
+				 </article> <br>
+				   <img src="img/romatizm.jpg" alt="romatizm"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                 <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>               
+            </div>
+</div>
+<div data-role="page" id="mradh7">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو التهاب المعدة</h1>
+				 <article>
+				 التهاب المعِدة هو تهيج وتورم في بطانة المعدة و تنتج حالة الاصابة بالتهاب المعدة عندما يحدث ضعف أو تلف في الطبقة الواقية لجدار المعدة الداخلي المخاطي مما يتسبب بالتهاب بطانة المعدة ، ويعد هذا الإلتهاب شائعاً ، و
+					يتسبب بحدوث ألم شديد وحاد في البطن ، و معظم الحالات ناتجة عن العدوى البكتيرية وغالباً ما تكون من نوع الملوية البوابية (H.pylori )
+					يقسم الى نوعين الأول مزمن يدوم فتره طويلة والثاني حاد فتره قصيرة تتراوح لعدة ايام فقط .
+				 </article>
+				 <h1>اسباب التهاب المعدة</h1>
+				 <article>
+				 <p>من الأسباب المعروفة و التي قد تؤدي للإصابة بالتهاب المعِدة:</p>
+				- الإصابة بالعدوى البكتيرية ومنها ( H.pylori ) .<br>
+				- استخدام بعض العقاقير الدوائية التي تتسبب بتأثير جانبي على المعدة كالأسبرين أو الآيبوبروفين  و خاصة عند استخدامها لفترة طويلة . <br>
+				- الإصابة بالإرتداد المعدي المريئي <br>
+				- بعض الحالات مرتبطة بالتوتر الشديد .<br>
+				- العدوى الفيروسية بالفيروس المضخم للخلايا ( CMV ) او الفيروس الهيربيسي البسيط ( HSV ) . <br>
+				- فرط استهلاك المواد الكاوية او المُتسببة في تآكل بطانة المعدة و فرط استهلاك المشروبات الكحولية .<br>
+				- وجود حالة مرضية تتطلب الاعتماد أجهزة التنفس الاصطناعي لمدة زمنية طويلة . <br>
+				- الاصابة بأمراض الجهاز المناعي الذاتية .<br>
+				 </article>
+				 <h1>تشخيص التهاب المعدة</h1>
+				 <article>
+				 <p> قد يلجأ الطبيب إلى التدابير التالية لتشخيص هذا المرض : </p>
+					-الفحص المخبري لعينة الدم وذلك للكشف عن البكتيريا المسببة للمرض .<br>
+					- الفحص المخبري لعينة البراز وذلك للكشف عن البكتيريا المسببة للمرض .<br>
+					- التنظير الداخلي لفحص أجزاء القناة الهضمية العلوية .<br>
+					- الفحص الإشعاعي وذلك عن طريق التصوير الاشعاعي ( X-ray ) للقناة الهضمية العلوية .<br>
+				 </article>
+				 <h1>الوقاية من التهاب المعدة</h1>
+				 <article>
+				 <p>للوقاية من المرض يجب اتباع التعليمات التالية :</p>
+				- عدم تناول الادوية الا بوصفة طبية و الإلتزام بتعليمات الطبيب و الصيدلاني حول الطريقة المناسبة للإستخدام .<br>
+				- الإمتناع عن تناول العقاقير الدوائية من مضادات الإلتهاب الغير ستيرويدية ( كالأيبوبروفين ، الديكلوفيناك) أو الأسبيرين و خاصة تناولها لفترة طويلة من الزمن و على معدة فارغة .<br>
+				- تناول طعام صحي ومتوازن .<br>
+				- الإقلاع عن التدخين .<br>
+				- عدم شرب المشروبات الكحولية .<br>
+				- الإهتمام بالنظافة العامة .<br>
+				- تناول الطعام المطبوخ جيداً .<br>
+				- تناول الخضروات المغسولة جيداً .<br>
+				- عدم إستعمال ادوات الأخرين الشخصية .<br>
+				- غسل اليدين بشكل متكرر بالماء والصابون قبل تناول الطعام او بعد استخدام دورة المياه .<br>
+				 </article>
+				 <img src="img/iltihebAlmaida.jpg" alt="iltihebAlmaida"  width="100%">
+
+            </div>
+            <div data-role="footer" data-position="fixed">
+             <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>  
+			 </div>
+      </div>
+<div data-role="page" id="mradh8">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو انقطاع النفس</h1>
+				 <article>
+				 هو انقطاع مؤقت للتنفس لمدة لا تزيد عن 10 ثواني . و يحدث في العادة اثناء النوم . و قد يكو
+				 ن سبب توقف النفس مركزيا اي من الدماغ او انسداديا بسبب سد الحلق او القصبات الهوائية . و ترتبط الحالة يالسمنة المفرطة و عيوب خلقية مثل ضيق الحلق 
+				 </article>
+				 <h1>اسباب انقطاع النفس</h1>
+				 <article>
+				 يحدث توقف النفس بسبب :
+				- اخذ المريض لادوية معينة مهدئة و مخملة للجهاز العصبي
+				- السكتات الدماغية
+				- الوزن الزائد
+				- حجم كبير للعنق
+				-عيوب خلقية مثل : لوزتين كبيرتين، لسان كبير، أو عظم فك صغيرة -ارتداد المريء -انسداد الأنف بسبب انحراف الحاجز الأنفي، والحساسية، أو مشاكل الجيوب الأنفية
+				 </article>
+				 <h1>الوقاية من انقطاع النفس</h1>
+				 <article>
+				 لتجنب الحالة ينصح ب تخفيف الوزن و الابتعاد عن الدخان و الكحول و ترك الادوية المسببة للحالة 
+				 </article>
+				 <h1>الفسيولوجياالمرضي ل انقطاع النفس</h1>
+				 <article>			 
+				يحدث توقف النفس بسبب فشل الدماغ بارسال سيالات عصبية لعضلات القفص الصدري و الحجاب الحاجز بالتالي تتوقف عملية التنفس مركزيا . او يحدث انس
+				داد في المجرى الهوائي اثناء التنفس مثل انسداد الانف او الحلق و ذلك اما بسبب عيوب خلقية او بسبب ارتخاء العضلات المكونة للحلق مما يؤدي الى انسداده مما يؤدي الى توقف التنفس 
+				 </article>
+				<img src="img/in9ita3Tanafos.jpg" alt="in9ita3Tanafos"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                 <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>               
+            </div>
+      </div>
+<div data-role="page" id="mradh9">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو الزهايمر</h1>
+				 <article>
+				 مرض الزهايمر هو اضطراب مُكتسب يتطور بشكل تدريجي ، يُصيب الدماغ يتميز بفقدان الذاكرة التدريجي و بالتالي ضعف في وظائف الدماغ العُليا منها التخطيط و اللغة و الاستيعاب.
+				يؤثر الزهايمر بدوره على الحياة الاجتماعية والوظيفية للمريض ، و بالتالي يجب توفير الرعاية الصحية الداعمة للمريض .
+				<p>يتطور المرض عبر 4 مراحل:</p>
+				مرحلة ما قبل الخرف 'النسيان' وقد تستمر هذه المرحلة الى 8 سنوات واهم اعراضها ضعف الذاكرة<br>
+				المرحلة المبكرة 'التشوش' تبدأ أعراض صعوبات الكلام و الاستيعاب و صعوبة القيام بالأنشطة الاجتماعية<br>
+				المرحلة المتوسطة 'الخرف المتنقل'  يفقد المريض القدرة على أداء بعض الوظائف اليومية.<br>
+				المرحلة المتقدمة 'النهاية' يصبح فيها المريض معتمد اعتماد كلي على الآخرين.<br>
+				 </article>
+				 <h1>اسباب الزهايمر</h1>
+				 <article>
+				 <p>من الاسباب المعروفة التي تؤدي الى تراكم بروتين الاميلويد في الدماغ مما يؤدي الى تلف هذه الخلايا و الاصابة بمرض الزهايمر:</p>
+					اسباب جينية و وراثية .<br>
+					التقدم في العمرحيث أن معظم الحالات تكون 65 عاماً وأكثر .<br>
+					عوامل بيئية غير معروفة وعوامل أخرى متعلقة بنمط حياة المريض تؤثر بدورها و بشكل مباشر على الوظائف الدماغية كعدم ممارسة الرياضة ، و العزلة الإجتماعية ، و التغذية التي تفنقر للفواكه و الخضار . <br>
+					التعرض لرضوض واصابات الرأس المتكررة . <br>
+					التدخين .<br>
+					<p>بعض الحالات مرتبطة بمرض السكري غير المنضبط و ارتفاع ضغط الدم . </p>
+				 </article>
+				 <h1>الوقاية من الزهايمر</h1>
+				 <article>
+				<p> يمكن الوقاية من مرض الزهايمر عن طريق:</p>
+				تنشيط الدماغ و الذاكرة عن طريق التدريب على الحفظ و بعض الالعاب مثل الكلمات المتقاطعة. <br>
+				المحافظة على نمط غذائي صحي .<br>
+				ممارسة التمارين الرياضية بشكل مستمر .<br>
+				الإختلاط بالاخرين و تجنب العزلة .<br>
+				 </article>
+				 <img src="img/zahaymar.jpg" alt="zahaymar"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+               <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>                 
+            </div>
+      </div>
+<div data-role="page" id="mradh10">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو التهاب الكبد</h1>
+				 <article>
+				 التهاب الكبد هو مرض تسبّبه عدوى فيروسية في غالب الأحيان تؤدي الى تلف الخلايا الكبدية وتشمعها. توجد 
+				 خمسة انماط رئيسية لالتهاب الكبد تصنف تبعا للفيروس المسبب للالتهاب وهي A و B و C و D و E. ويشار الى
+                 أنّ النمطين B و C يؤديان إلى الاصابة بالتهاب مزمن في الكبد وقد ينتج عن ذلك الاصابة بتشمّع الكبد وسرطان الكبد.
+				 </article>
+				 <h1>اسباب التهاب الكبد</h1>
+				 <article>
+				 <p>تنتج الاصابة التهاب الكبد عن:</p>
+					- العدوى الفيروسية.<br>
+					- بعض الأدوية والمواد الكيميائية.<br>
+					- السموم. <br>
+					وفي حالة الفيروسات؛ ينتشر المرض عن طريق ملامسة البراز الملوث، أو بواسطة الأطعمة والمواد الملوثة، أو استعمال الحقن ونقل الدم من شخص مصاب وذلك تبعا لنوع الفيروس المسبب.<br>
+				 </article>
+				 <h1>الوقاية من التهاب الكبد</h1>
+				 <article>  
+				- الحرص على اتباع قواعد النظافة الشخصية. 
+				- عدم استخدام ادوات الغير.<br>
+				- اجراء فحوصات دورية للجسم وفحوصات وظائف الكبد بشكل خاص.<br>
+				 </article>
+			    <img src="img/iltihebkabed.jpg" alt="iltihebkabed"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div> 
+<div data-role="page" id="mradh11">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos=""  class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو عسر الهضم</h1>
+				 <article>
+					 <p>عسر الهضم هو الشعور بعدم الارتياح والألم في منطقة اعلى البطن خلال او بعد تناول الطعام وقد يُرافقه الشعور بالشبع والشعور بالحرقة والألم في أعلى المعدة.</p>
+					 <p>يعد عسر الهضم عادة علامة على مشكلة داخلية قد تكون ارتجاع مريئي، قرحة،او المرارة</p>
+			     </article>
+				 <h1>اسباب عسر الهضم</h1>
+				 <article>
+				 <p>من الأسباب المعروفة و التي قد تؤدي للإصابة بعسر الهضم :</p>
+					- تناول كميات زائدة من الطعام او تناول الطعام بسرعة.<br>
+					- تناول الاطعمة الدهنية أو الحارة . <br>
+					- فرط استهلاك الكافيين , الكحول , الشوكولاتة او المشروبات الغازية.<br>
+					- التدخين.<br>
+					- التوتر او الضغط النفسي . <br>
+					- تناول بعض المضادات الحيوية , مسكنات الالم ومكملات الحديد. <br>
+					وقد يرتبط عسر الهضم باضطرابات صحية عديدة منها : <br>
+					- التهاب المعدة.<br>
+					- القرحة الهضمية.<br>
+					- الداء البطني (وهو عبارة عن اضطراب مناعي ينتج عنه الحساسية لبروتين الجلوتين وهو البروتين الموجود في القمح والشعير).<br>
+					- حصى المرارة.<br>
+					- الامساك.<br>
+					- التهاب البنكرياس.<br>
+					- سرطان المعدة.<br>
+					- انسداد الامعاء.<br>
+					- انخفاض التروية الدموية للامعاء.
+				 </article>
+				 <h1>الوقاية من عسر الهضم</h1>
+				 <article>
+				    - الالتزام بنمط حياة صحي وتناول الاطعمة الصحية.<br>
+					- الابتعاد عن الكحول والتدخين والتقليل من المشروبات التي تحتوي على الكافيين.<br>
+					- استشر الطبيب اذا استمر عسر الهضم لعدة أيام.<br>
+				 </article>
+			    <img src="img/osoralhadhem.jpg" alt="osoralhadhem"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh12">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو صداع التوتر</h1>
+				 <article>
+				 <p>
+				 صداع التوتر هو أحد أنواع الصداع الاكثر انتشاراً بين البالغين والذي ينتج عنه ألم وعدم إرتياح في منطقة الرأس، ويكون مصاحباً و ينشأ عن انقباض العضلات التي تغطي جمجمة الراس. في الغالب يصيب النساء أكثر من الرجال . 
+				قد تظهر أعراض صداع التوتر بشكل يومي ، أو بشكل متقطع (مرتين إسبوعا على الأقل أو قد تكون على فترات متتالية تفصل بينها فتره زمنية محددة ) ، و طبيعة هذا الصداع أنه يؤثر في كلا الجهتين م
+				ن الراس ، و قد يمتد للرقبة . و نوبات الصداع قد تستمر من مدة نصف ساعة و تختفي و قد تتواصل لعدة أيام متت
+				الية ، بعض الحالات تكون شدة الصداع بسيطة و حالات اخرى تكون شديدة بحيث تؤثر في النشاطات اليومية التي يؤديها المريض .</p>
+				 </article>
+				 <h1>اسباب صداع التوتر</h1>
+				 <article>
+				 <p>أسباب الإصابة بصداع التوتر غير معروفة بعد ، و لكن هذه العوامل قد تزيد من خطر الإصابة :</p>
+				- الإدمان على تناول المشروبات الكحولية <br>
+				- الإصابه بالزكام أو الإنفلونزا <br>
+				- مشاكل تسوس الاسنان <br>
+				- حدوث التهابات في العين ، أو حالات اجهاد العين<br>
+				- التهاب الجيوب الأنفية<br>
+				- القلق والتوتر والارق<br>
+				- التدخين <br>
+				- حالات الجفاف <br>
+				- استنشاق روائح معينة<br> 
+				- قلة النشاط البدني<br>
+				 </article>
+				 <h1>التعايش مع صداع التوتر</h1>
+				 <article>
+				 يجب الألتزام بتعليمات وقواعد الطبيب<br>
+				عدم إجهاد النفس والإبتعاد عن التوتر والقلق <br>
+				تناول غذاء صحي مناسب ومتوازن <br>
+				ممارسه التمرينات الرياضية بشكل دوري <br>
+				مراجعه الطبيب بشكل دوري <br>
+				الإقلاع عن التدخين<br>
+				 </article>
+			    <img src="img/sousaTawator.jpg" alt="sousaTawator"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh13">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو صرع</h1>
+				 <article>		 
+				 الصرعٌ هو إختلال يصيب الدماغ منتجاً نبضات وتشنجات وتقلصات عضلية قصيرة المدة ومتتالية اثر إعتلال في ايصال و إنشاء الإشارات العصبية من الدماغ للعضلات .
+				ويعتبر الصرع مرض مزمن يصيب الأنسان في اي فتره من العمر والجدير بالذكر ان الإصابة بهذه المشكله لا يؤثر على القدرة التفكيرية للشخص المصاب ويكون لديه قدرات عقلية سليمة وهو يختلف عن التشنجات بحيث يكون
+				مزمن ومتكرر تبعاً لوضع المريض فالتشنج قد يكون عرضي يصيب الشخص مرة واحده في حياتة ولا تتكرر ثانية أما في حال تكررها في فتره تقل عن 12 شهر أو سنه فقد يُعد ذلك صرع .
+				</article>
+				 <h1>اسباب صرع</h1>
+				 <article>
+				<p> من الأسباب المعروفة و التي قد تؤدي للإصابة بالصرع :</p>
+				- هبوط مستوى سكر الدم .<br>
+				- ارتفاع درجات حراره الجسم .<br>
+				- نقص الاكسجين لخلايا الدماغ .<br>
+				- الإصابة بالشلل الدماغي .<br>
+				- تعاطي المخدرات أو الإدمان على الكحول .<br>
+				- الإصابة التهاب السحايا وعدم معالجتها بالطريقة الصحيحة .<br>
+				- حدوث أورام سرطانية دماغية .<br>
+				- الإصابة بالسكتة الدماغية .<br>
+				<p> الصرع مجهول السبب :
+				عدم وجود اي عامل مُسبب أو مُحفز للصرع .</p>
+				<p>من المحفزات التي تعيق استقرار المريض وتزيد فرصة حدوث النوبات هي :</p>
+				- التوتر والقلق الدائم .<br>
+				- الشعور بالأرق وعدم النوم لساعات كافية .<br>
+				- تناول المخدرات و إدمان الكحول .<br>
+				- هبوط مستوى سكر الدم .<br>
+				- ارتفاع درجات حراره الجسم .<br>
+				- بعض الادوية مثل الادوية المستخدمة لعلاج الامراض النفسية .<br>
+				 </article>
+				 <h1>مضاعفات صرع</h1>
+				 <article>
+				 <p>من المضاعفات التي يمكن حدوثها نتيجة الإصابة بالمرض :</p>
+				- إيذاء المصاب خلال حدوث النوبة العصبية .<br>
+				- التاثير على الجنين ان كان المصاب إمرأه حامل  .<br>
+				- التاثير على شخصية المريض وعلاقاته الإجتماعية .<br>
+				 </article>
+			    <img src="img/saraa.jpg" alt="saraa"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh14">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو صلع</h1>
+				 <article>
+				 الصلع هو نمط لفقدان الشعر عند الذكور والإناث دون ان ينمو شعر جديد من بصيلات الشعر المفقود
+				 </article>
+				 <h1>اسباب صلع</h1>
+				 <article>
+				 <p>هناك عدد من الاسباب للصلع عند الذكور والإناث ومنها :</p>
+					<p>عند الرجال:</p>
+					- الاستعداد الوراثي <br>
+					- هرمونات الذكورة<br>
+					 <p>عند الاناث :</p>
+					- الاستعاد الوارثي <br>
+					- الشيخوخة وسن الياس الذي قد يؤدي لرتفاع هرمونات الذكورة عند الإناث<br>
+				 </article>
+				 <h1>مضاعفات صلع</h1>
+				 <article>
+				 - فقدان الثقة بالنفس خاصة عند الاناث<br>
+                 - الاجهاد النفسي<br>
+				 </article>
+			    <img src="img/solo.jpg" alt="solo"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh15">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو قصور القلب</h1>
+				 <article>
+					قصور القلب أو ما يسمى فشل القلب الاحتقاني هو من أحد الأمراض المزمنة التي تصيب العضلة القلبية ويؤثر على قدرتها في ضخ الدم ليصل الى جميع انحاء الجسم بالكمية الكافية حاملاً الأوكسجين اللازم للقيام بالوظائف الخلوية الأساسية ويقسم الى اقسام تبعاً لمكان الأصابة وعادة ما يصيب العضلة القلبية كاملة لكن احياناً قد يصيب الجزء الايمن فقط او الايسر فقط وهذا الأمر نادر الحدوث .
+					و قد تقسم تبعاً لنوع القصور فإن كان الفشل بسبب صلابة جدار العضلة القلبية وعدم قدرتها على تعبأة الدم في حجرات القلب يسميه فشل القلب الانبساطي في حين يسمى فشل القلب الإنقباضي إذا كانت المشكلة في انقباض العضلات القلبية ذاتها . وفي الوضع الطبيعي يتم ضخ ما يعادل 5.5 لتر في الدقيقة الواحده وفي حالة الفشل القلبي يكون المعدل أقل من ذلك ، يؤثر فشل عضلة القلب في الجانب الأيسر , الأيمن أو كلاهما وعادة ما يبدأ في الجانب الأيسر وبالتحديد في البطين الأيسر .
+				 </article>
+				 <h1>اسباب قصور القلب</h1>
+				 <article>
+				 <p>من الأسباب المعروفة و التي قد تؤدي للإصابة :</p>
+				-لاصابة بالأمراض القلبية المزمنة الأخرى مثل التهاب عضلة القلب أو التهاب شغاف القلب.<br>
+				- الإصابة بإرتفاع ضغط الدم .<br>
+				- الإصابة بداء الشريان التاجي .<br>
+				- وجود عيوب خلقية في عضلة القلب أو اختلال صمامات القلب.<br>
+				- اضطرابات الغدة الدرقية ( قصور أو فرط نشاط الغدة الدرقية ) .<br>
+				- حدوث إختلالات في أملاح الدم .<br>
+				- العدوى الفيروسية لعضلة القلب .<br>
+				- التفاعلات التحسسية الأرجية المزمنة .<br>
+				- الإصابة باحد أمراض الدم .<br>
+				- الإصابة بفقر الدم الحاد .<br>
+				- قد تلعب الوراثة دورا هاما بالإصابة بهذا المرض .<br>
+				- تضخم العضلة القلبية.<br>
+				- أعراض جانبية لعلاجات دوائية .<br>
+				 </article>
+				 <h1>الوقاية من قصور القلب</h1>
+				 <article>
+				<p> - أظهرت العديد من الدراسات أن النظام الغذائي المتوازن يقلل من فرصة الإصابة بمشاكل القلب و الأوعية الدموية ، الإبتعاد عن الطعام الدهني ، الأطعمة الجاهزة </p>
+				- الإكثار من الخضار و الفواكه الطازجة . <br>
+				- الإقلاع عن التدخين .<br>
+				- ممارسه الرياضة بشكل دوري .<br>
+				- انقاص الوزن في حال وجود السمنه .<br>
+				- قياس ضغط الدم لمرض الضغط الدم المزمن باستمرار .<br>
+				- المحافظة على سكر الدم ضمن المستويات الطبيعية .<br>
+				 </article>
+			    <img src="img/9osour9aleb.gif" alt="9osour9aleb"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh16">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو قشرة الراس</h1>
+				 <article>			 
+                  قشرة الراس هي طبقة بيضاء تنتشر على فروة الراس بين خصيلات الشعر وهي حالة كثيرة الانتشار بين جميع الاشخاص الكبار والصغار وهي غير معدية ونادرا ما تكون خطيرة.
+				 </article>
+				 <h1>اسباب قشرة الراس</h1>
+				 <article>
+				 اسباب ظهور قشرة الراس.: 1- جفاف جلد فروة الراس وتظهر بوضوح في فصل الشتاء بسبب تعرض الجلد للهواء البارد ومن ثم يكون جو المنزل دافئ جدا. 2- الاكزيما التي تهر بسبب التحسس من منتجات معينة مثل الشامبو 3-التهاب الجلد الزهمي العوامل مساعدة: 1- العمر تكثر في مرحلة الشباب وتنهي وفي مرحلة منتصف العمر ونادرا ما تصيب كبار السن. 2-سوء التغذية 3- يصاب بها الرجال اكثر من النساء
+				 </article>
+				 <h1>الوقاية من قشرة الراس</h1>
+				 <article>
+				 يجب العناية بغسل شعر الرأس بانتظام ، وتجنب استعمال أو الاكثار من المواد الكيميائية تدليك فروة الرأس يوميا لتحسين الدورة الدموية في الرأس وتغذية الشعر ممارسة الرياضة لتحسين الدورة الدموية التغذية المتوازنة والتي تحتوي على الفيتامينات المختلفة.
+				 </article>
+			    <img src="img/kichra.jpg" alt="kichra"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh17">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو رمد ربيعي</h1>
+				 <article>
+				 الرمد الربيعي هو التهاب وتورم يصيب طبقات الانسجة المبطنة للجفون ( الملتحمة) مما يؤدي الى عدم ظهور بياض العين احيانا وهو مرض يصيب العين يشتد مع حرارة الجو، لذا فإنه يظهر في الربيع ويشتد في الصيف، وتتناقص شدته في الخريف والشتاء، ويصيب الأطفال اليافعين خاصة الذكور. يعالج المرض عرضياً وليس له علاج سببي شاف.
+				 </article>
+				 <h1>اسباب رمد ربيعي</h1>
+				 <article>
+				 يحدث الرمد الربيعي بسبب تعرض العين لمواد قد تسبب التحسس عند بعض الاشخاص , حيث ان حمى القش هي سبب رئيسي بها . ومن مسببات حمى القش: 1- الاشجار 2- الاعشاب 3- حبوب اللقاح المنتشرة في الجو
+				 </article>
+				 <h1>مآل/ تكهن رمد ربيعي</h1>
+				 <article> 
+                 يمكن للعلاجات ان تخفف من الاعراض الا ان التحسس سوف تعود عند التعرض لمسببات التحسس مرة اخرى
+				 </article><br>
+			    <img src="img/ramad.jpg" alt="ramad"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh18">
+            <div data-role="header">
+               <h1>صحتي</h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو سعال ديكي</h1>
+				 <article>
+				 السعال الديكي هو العدوى البكتيرية المؤثرة في القناة التنفسية عند الأطفال الرضع والأطفال الصغار وينتقل بسهولة بين الأطفال عن طريق القطيرات الهوائية الحاملة للبكتيريا .
+					في حال تأخر علاج الطفل المُصاب يُصبح قادراً على نقله لمدة ثلاثة أسابيع أو أكثر من بدء السعال
+					تتراوح فترة حضانة البكتيريا المسببة للشاهوق بين 9 - 10 أيام من اكتساب العدوى .
+				 </article>
+				 <h1>اسباب سعال ديكي</h1>
+				 <article>
+				 تنتج الاصابة بعدوى السعال الديكي ( الشاهوق ) عن البكتيريا البورديتيلة الشاهوقية التي تنتقل من طفل لآخر عن طريق القطيرات الهوائية الناجمة سُعال أو عطاس الطفل المُصاب .
+				 </article>
+				 <h1>الوقاية من سعال ديكي</h1>
+				 <article>
+				 يُوصى بضرورة تلقيح الطفل الرضيع ضد البكتيريا المُسببة للسعال الديكي ( الشاهوق ) بمعدل ثلاث جرعات عند بلوغ الطفل 2 و 3 و 4 أشهر وجرعة داعمة قبل دخوله للمدرسة .
+				 </article><br>
+			    <img src="img/soualDiki.jpg" alt="soualDiki"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh19">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو السمنة</h1>
+				 <article>
+				 السُمنة هي ارتفاع نسبة الدهون الكلية في الجسم المتسبب في زيادة وزن الجسم بمعدل 20 % أو أكثر من الوزن الطبيعي الملائم للعمر والطول . تظهر علامات السُمنة بشكل تدريجي نتيجة لتناول الدهون بمعدل يفوق استهلاكها أو حرقها . تُعد السمنة احد عوامل الخطر الرئيسية للاصابة بالامراض المزمنة كالسكري , امراض القلب والاوعية الدموية والأورام .
+                 يعتبر الشخص سمينا إذا كان مؤشر كتلة الجسم لديه أكثر من 30، تحدث السمنة عادة بسبب استهلاك سعرات حرارية أكثر من حرقها على مدى الوقت مما يؤدي لتراكم المزيد من الدهون وبالتالي السمنة. خسارة ما يعادل 5-10 % من الوزن قد تلغب دور كبير في تقليل نسبة خطر الإصابة بالأمراض المرتبطة بالسمنة.
+				 </article>
+				 <h1>اسباب السمنة</h1>
+				 <article>
+				 <p>من الأسباب المعروفة و التي قد تؤدي للإصابة ب السمنة :</p>
+					الجينات والتاريخ العائلي للإصابة بالسمنة<br>
+					التقدم في السن الذي يقلل الجسم من قدرته على استقلاب الغذاء بالرغم من تناول الغذاء ذاته وممارسة النشاطات ذاتها في مراحل عمرية سابقة<br>
+					نقص ممارسة النشاط الفيزيائي الذي يُحفز بدوره حرق السعرات الحرارية ويُقلل من الشهية<br>
+					العادات الغذائية الخاطئة واستههلاك الطعام الغير صحي<br>
+					العوامل النفسية السلبية التي تدفع الى تناول المزيد من الطعام<br>
+					بعض الاضطرابات الهرمونية والأمراض <br>
+					التدخين وقلة النوم <br>
+					العقاقير الدوائية كالستيرويدات ومُضادات الاكتئاب<br>
+					الجنس الانثوي حيث يتناقص معدل الاستقلاب عند السيدات مقارنة بالرجال الذين يحتاجون الى المزيد من السعرات الحرارية للحفاظ على وزن الجسم<br>
+				 </article>
+				 <h1>الوقاية من السمنة</h1>
+				 <article>
+				 <p>للوقاية من السمنة يجب اتباع التعليمات التالية : </p>-
+                 ممارسة التمارين الرياضية بشكل منتظم . - تناول الوجبات الغذائية الصحية . - التعرف على العوامل التي تدفع الى فرط الاكل وتجنبها . - مراقبة الوزن بشكل دوري .
+				 </article>
+				 <br>
+			    <img src="img/Simna.jpg" alt="Simna"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>  
+<div data-role="page" id="mradh20">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو سرطان</h1>
+				 <article>
+				 هو اسم عام يطلق على مجموعة من الأمراض.
+					الورم الخبيث ينتج عن تحول، أو تغير خبيث يصيب الخلايا الظهارية، يصيب الإنسان والحيوان، وكذلك بعض النباتات.
+					تشترك جميع انواع السرطان بانقسام غير طبيعي و غير محدود للخلايا وتنتشر هذه الخلايا الغريبة للأنسجة المحيطة.
+					ينشأ السرطان في أي مكان في الجسم .
+					خلايا الجسم في الانسان السليم تنمو و تنقسم فقط لتلبية حاجات الجسم وعندما يتقدم عمر الخلية ، تموت تلقائياً ، أما في حالات السرطان يتلف مسار هذه العملية مما يؤدي لبقاء الخلايا التي من المفترض ان يتخلص منها
+					 الجسم  على قيد الحياة و يتم بناء خلايا جديدة بعدد كبير ولكن الجسم ليس بحاجتها.
+					بعض السرطانات تؤدي الى تكوين كتل صلبة في الجسم وبعضها الآخر مثل سرطان الدم لا يسبب نمو ورم ملموس.
+					تسمى السرطانات  أورام خبيثة أي تنتقل عبر الدم و الجهاز اللمفي للأنسجة الأخرى في الجسم لتكون اورام جديدة
+					و بعض الاورام تسمى حميدة اي تبقى في مكانها ولا تنتشر وبالتالي بمجرد استئصالها لا تنمو مرة اخرى.
+				 </article>
+				 <h1>اسباب سرطان</h1>
+				 <article>
+				 <p>لا يعرف على وجه التحديد سبب هذا التغير في نمو الخلايا وتكاثرها ؛ الذي يحدث أن الخلايا الظهارية يصيبها تغير مرضي يجعلها تنمو وتتكاثر بسرعة وبطريقة غير منتظمة، وتغزو الأنسجة المجاورة، أو تنتشر عن طريق
+				الأوعية اللمفية والأوعية الدموية إلى الغدد اللمفية وإلى الأعضاء البعيدة كالرئتين والعظام والكبد والمخ.</p>
+				<p>ويمكن اختصار هذه الاسباب بنوعين :</p>
+				<p>1- اسباب اساسية داخلية :</p>
+				يوجد بعض الشواهد التي تعزي ذلك لاضطربات في بنية الخلية وعلى الاخص في الصبغيات (الكروموسومات)
+				<p>2- اسباب خارجية :</p>
+				هذه العوامل كثيرة بلغ عددها من 200 مادة مسرطنة يمكن تقسيمها :
+				<p>المواد المسرطنة الكيماوية :</p>
+				<p>العضوية :</p>
+				القطران , البرافين , الانيلين , النزبيرين , البنزول .
+				<p>غير العضوية :</p>
+				المواد الزرنيخية , الكرومات , النيكل , الاسبتسوز .
+				<p>المواد المسرطنة الفيزيائية :</p>
+				الاشعة فوق البنفسجية , الاشعاعات النووية .
+				<p>اضطرابات التغذية :</p>
+				بعض المواد البروتينية واستقلاب الفيتامينات.
+				<p>مواد حيوية وهرمونية :</p>
+				البلهارسيا .
+				<p>عوامل مساعدة :</p>
+				فلقد لوحظ ان هنالك بعض عوامل تساعد في ازدياد نسبة السرطان من هذه العوامل يمكن ان نذكر :</p>
+				<p>اولا :</p>
+				<p>المهنية :</p>
+				فقد لوحط ان هنالك بعض المهن تزداد يسبة الاصابات السرطانية فيها نسبة لبقية المهن الاخرى فمثلا يلاحظ ازدياد نسبة السرطان عند العاملين بالتماس مع الاشعة او النيكل او الكروم او الاسبستوز والمواد القطرانية اضافة
+				لسرطانات اخرى عرفت بالاورام المهنية.
+				<p>هذه الاورام تقسم حسب راي نسبة للتماس مع المواد المسرطنة الى ما يلي :</p>
+				*الاورام التي تحدث من التماس المباشر مع هذه المواد او تلك .
+				<p>-اورام الجلد :</p>
+				تنجم عن تماس مباشر بمواد الزيوت المعدنية البارفين غير المصنع خلاصة القطران
+				– فحم الانتراست
+				– الاشعة السينية وما فوق البنفسجية
+				– المواد الراديومية .
+				<p>- اورام الرئة :</p>
+				تنجم عن استنشاق الاشعاعات الراديوية سبست مركبات الكروم , والشكل كربونيل النيكل زرنيخ
+				–زفت
+				–البيريت .
+				<p>- اورام الطرق الانفية :</p>
+				العظام المتشاركة تنجم عن تاثير النيكل والاشعاعات الراديومية .
+				- سرطان القسم العلوي من جهاز الهضم ينجم عن مركبات الزرنيخ وبعض المواد المسرطنة المؤثرة لتماسها مع الغشاؤ المخاطي .
+				<p>*الاورام الناجمة عن تناولها عن طريق الفم :</p>
+				- اورام الجلد البشروية الظاهرة بعد تناول داخليا مركبات الزرنيخ .
+				- اورام الجهاز البولي الظاهرة من تاثر بعض الامينات العطرية عند اطراحها عن البول .
+				<p>*الاورام الناجمة عن توضع المواد المسرطنة كمدخر في الانسجة :</p>
+				- سرطان الجلد للتوضع في انسجة مركبات الزرنيخ .
+				- ساركوم العظم المثار بتوضع مواد شعاعية فيه .
+				اورام الانسجة الاخرى الناجمة عن بعض التاثير ببعض العوامل المولدة للسرطان كما يحدث نقص الكريات البيض الناجم عن تاثير الاشعاعات على الكريات البيض والمواد المشعة والبنزول ومشتقاته .
+				سرطان المثانة والكبد والامعاء الغليظة المثارة ببعض الديدان الطائشة في هذا الاعضاء كالبلهارسيا الدموية .
+				<p>ثانيا :</p>
+				<p>العادات :</p>
+				لقد تبين ان نسبة حدوث السرطان عند المدخنين اعلى من غيرهم واظهرت دراسات عديدة العلاقة بين استهلاك الكحول وخاصة ما يسمى بالوسكي وانماط معينة من السرطانات كما في سرطان الحنجرة والمعدة والمري والفم
+				انما الدراسات تحتاج الى تفسير وتفاصيل اكثر .
+				<p>ثالثا :</p>
+				<p>الجنس :</p>
+				تختلف الاصابات باختلاف الجنس والعمر
+				<p>رابعا :</p>
+				<p>الوراثة :</p>
+				يوجد بعض الشواهد تذكر اثر الوراثة في بعض اشكال السرطان كسرطان الثدي والبعض لم يؤكد ذلك .
+				<p>خامسا :</p>
+				<p>الانتانات المتكررة بالحمات الراشحة :</p>
+				هناك بنيات من شواهد تزيد من اثر هذه العوامل في احداث التسرطن هذه الحمات قد تحرص هي نفسها الخلايا في احداث السرطان او انها تساعد في حدوث التسرطن اضافة للعوامل الاربعة الاخرى ان مؤيد هذه النظرية
+				كثيرون بحسب راي متشنيكوف تعتبر الحمات الراشحة قليلة الفعالية تتاقلم في العضوية عند عدم وجود اية مقاومة في العضوية وتظهر قدرتها الامراضية في ظروف خاصة .
+				 </article>
+				 <h1></h1>
+				 <article>
+				<p> مهما يكن من امر هذه الاسباب فالكل متفقون على ان العنصر الاساسي في الوقاية يكون بابعاد الاشخاص من التماس المواد المسرطنة او المساعدة في حدوث التسرطن وتتلخص بما يلي :
+				<p>الوقاية الاولية :</p>
+				<p>وتتم بالتخلص من الاسباب المساعدة او المحدثة للسرطان :</p>
+				التوعية الجيدة عن السرطان لكافة افراد الشعب واللعاملين في السلك الطبي من اطباء نوالطباء اسنان وصيادلة وممرضات وفي المدارس وغيرها .<br>
+				<p>وقاية نوعية:</p>
+				- بحذف المواد المستوطنة في الصناعة والبيئة .<br>
+				- تطوير وسائل الصحة العامة لتحديد النسب النظامية للمواد المختلفة واستبدال الاشد سمية بالمواد قليلة السمية .<br>
+				- نفضل عدم حدوث الزواج او الانجاب عند شخصين وجد في سوابقهم العائلية اصابات سرطانية قد شك باثر الوراثة في احداثها .<br>
+				- التعامل الجيد ما بين فروع الطب .<br>
+				<p>وقاية ثانوية :</p> 
+				- ثقافة عن الفحص الشخصي<br>
+				– اطباء خاصون في المستشفيات لاجراء الفحوصات العامة  للكشف المبكر عن بعض الاصابات بالسرطان .<br>
+				- عدم التدخين<br>
+				- استخدام كريمات واقية من الشمس والملابس المناسبة<br>
+				- الحد من استهلاك الكحول<br>
+				- الحد من تناول الأطعمة التي تحتوي على الدهون والحيوانية خاصة<br>
+				- ممارسة النشاط الرياضي<br>
+				- إجراء الفحوصات الدورية للتأكد من الخلو من الأمراض<br>
+				 </article><br>
+			    <img src="img/salatan.jpg" alt="salatan"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div> 
+<div data-role="page" id="mradh21">
+            <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>          
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>ماهو السكري</h1>
+				 <article>
+				 السكري هو الاضطراب المزمن الذي يتسبب في اختلال قدرة الجسم على استخدام الطاقة من مصادرها الغذائية لنقص هرمون الانسولين المُفرز من البنكرياس والمسؤول عن زيادة قدرة الخلايا على استيعاب الغلوكوز لانتاج الطاقة مما يتسبب بارتفاع تركيزه في مجرى الدم.
+                 يُصنف السكري الى ثلاثة انماط رئيسية تشترك في الخصائص العامة وتختلف في مُسببها كالنمط الاول للسكري , النمط الثاني للسكري والسكري الحملي .
+				 </article>
+				 <h1>اسباب السكري</h1>
+				 <article>
+				    <p>تختلف مُسببات الاصابة بالسكري باختلاف نمطه وتتمثل بما يلي :</p>
+					<p>النمط الثاني من السكري : </p>
+					قصور افراز هرمون الانسولين من البنكرياس 
+					انتاج هرمون الانسولين المعيب ( نادراً ) . 
+					 عدم استجابة الخلايا للانسولين ( مقاومة الانسولين ) . 
+					<p> النمط الاول من السكري :</p>
+					الفقدان الكلي لهرمون الانسولين والناجم غالباً عن مهاجمة الجهاز المناعي لخلايا البيتا البنكرياسية .
+				 </article>
+				 <h1>الوقاية من السكري</h1>
+				 <article>
+				 <p>تتعدد الاجراءات الوقائية للاصابة بالسكري وخاصة النمط الثاني حيث ان النمط الاول جيني المنشأ أما الحملي فتختفي علاماته بعد الولادة ومنها :</p>
+					- تناول الغذاء الصحي الغني بالخضراوات والفاكهه وقليل السعرات الحرارية .<br>
+					- الالتزام بممارسة التمارين الرياضية بشكل منتظم .<br>
+					- الحفاظ على الوزن الصحي .<br>
+				 </article><br>
+			    <img src="img/sokari.jpg" alt="sokari"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">               
+            <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>          			             
+            </div>
+</div>   
+
+<!-- Recherche fel aradh-->
+       <div data-role="page" id="aradh">
+            <div data-role="header">
+                     <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>
+            </div>
+          <div data-role="main" class="ui-content">      
+               <form class="ui-filterable">
+                   <input id="searchInput1" type="search" placeholder="ابحث عن أعراض المرض ">
+               </form>
+               <ul data-role="listview" data-input="#searchInput3" data-filter="true">
+                       <li data-filtertext="الزكام الرشح زكام العُطاس الصداع و الحمى علامات وأعراض"><a href="#aradh1" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>الزكام</h2></a></li>
+                       <li data-filtertext="انف اذن وحنجرة التهاب الحلق إلتهاب البلعوم"><a href="#aradh2"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>التهاب الحلق</h2></a></li>
+					   <li data-filtertext="الانفلونزا معدٍ  العطس أو السعالالجهاز التنفسي"><a href="#aradh3"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>الانفلونزا</h2></a></li>
+					   <li data-filtertext="التهاب الاذن أنف أذن حنجرة   الإلتهاب"><a href="#aradh4"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>التهاب الاذن</h2></a></li>
+					   <li data-filtertext=" ربو ض تنفسي تحسسي مزمن  الشعب الهوائية"><a href="#aradh5"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>ربو</h2></a></li>
+					   <li data-filtertext="روماتيزم الروماتيزمية المفاصل العظام رثِّية"><a href="#aradh6"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>روماتيزم</h2></a></li>
+					   <li data-filtertext="أمراض الجهاز الهضمي جدار المعدة الداخلي بطانة المعدة التهاب المعدةالإلتهاب"><a href="#aradh7"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>التهاب المعدة</h2></a></li>
+					   <li data-filtertext="انقطاع النفس أمراض الجهاز التنفسي "><a href="#aradh8"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>انقطاع النفس</h2></a></li>
+					   <li data-filtertext=" الزهايمر زهايمر اضطراب الدماغ فقدان الذاكرة "><a href="#aradh9"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>الزهايمر</h2></a></li>
+					   <li data-filtertext="التهاب الكبد عدوى فيروسية أمراض باطنية  تلف الخلايا الكبدية"><a href="#aradh10"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>التهاب الكبد</h2></a></li>
+					   <li data-filtertext="عسر الهضم  اعلى البطن الحرقة المعدة"><a href="#aradh11"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>عسر الهضم</h2></a></li>
+					   <li data-filtertext="صداع التوتر ألم   الرأس  انقباض العضلات جمجمة"><a href="#aradh12"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>صداع التوتر</h2></a></li>
+					   <li data-filtertext=" الدماغ عضلية قصيرة  نبضات تشنجات"><a href="#aradh13"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>صرع</h2></a></li>
+					   <li data-filtertext="صلع فقدان الشعر لحات"><a href="#aradh14"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>صلع</h2></a></li>
+					   <li data-filtertext="قصور القلب فشل القلب الاحتقاني العضلة القلبية ضخ الدم "><a href="#aradh15"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>قصور القلب</h2></a></li>
+					   <li data-filtertext=" قشرة الراس طبقة بيضاء خصيلات الشعر "><a href="#aradh16"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>قشرة الراس</h2></a></li>
+					   <li data-filtertext="رمد ربيعي التهاب تورم  الانسجة المبطنة للجفون  بياض العين"><a href="#aradh17"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>رمد ربيعي</h2></a></li>
+					   <li data-filtertext="لعدوى البكتيرية القناة التنفسية الأطفال الرضع الأطفال الصغار لبكتيريا"><a href="#aradh18"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>سعال ديكي</h2></a></li>
+					   <li data-filtertext="ارتفاع نسبة الدهون  زيادة وزن الجسم الدهون"><a href="#aradh19"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>السمنة</h2></a></li>
+					   <li data-filtertext="سرطان الورم الخبيث الاورام الخبيثة"><a href="#aradh20"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>سرطان</h2></a></li>
+					   <li data-filtertext="الاضطراب المزمن السكري هرمون الانسولين  البنكرياس الغلوكوز"><a href="#aradh21"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/galbi.jpg" width="42" height="42"><h2>السكري</h2></a></li>
+               </ul>
+         </div>
+          <div data-role="footer" data-position="fixed">
+             <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>         			 
+            </div>
+      </div>
+
+<!-- al 23radh -->
+<div data-role="page" id="aradh1">
+         <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>    
+         </div>
+            <div data-role="main" class="ui-content">
+                   <article> 
+                 <h1>علامات وأعراض الزُكامْ</h1>
+				 <p> من علامات وأعراض الزُكامْ و غالباً ما تظهر بعد مرور 1 - 3 أيام من التعرض للفيروس و تستمر من يومين الى 14يوم ، و هذه الأعراض تشمل  </p>
+				 <ul>
+				 <li>اختناق و احتقان في الانف </li>
+				  <li>سيلان الأنف</li>
+				   <li>ارتفاع طفيف على درجات الحرارة</li>
+				    <li>العطاس المتكرر</li>
+					 <li>السعال</li>
+					  <li>ضغط في الأذن وفي الجيوب الأنفية</li>
+					   <li>صداع</li>
+					    <li>اجهاد و تعب عام</li>
+						 <li>حرقة أو ألم بسيط في العينين</li>
+						 <li>دمعان العينين</li>
+						 <li>وجع في الحلق</li>
+				 </ul>
+				 </article>
+				   <img src="img/aradhAlzoukem.jpg" alt="aradhAlzoukem"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+             <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           			 
+            </div>       
+     </div>
+<div data-role="page" id="aradh2">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>             
+            </div>
+            <div data-role="main" class="ui-content">
+                    
+                 <h1>أعراض وعلامات التهاب الحلق</h1>
+				 <article>
+				 <p>تظهر علامات و اعراض التهاب الحلق على شكل</p>
+					الم الحلق <br>
+					حمى 
+					لعيان و تقيؤ 
+					ألم متعدد في أنحاء مختلفة من الجسم 
+					صداع 
+					سعال 
+					سيلان من الانف 
+					الم الاذن 
+					فقد الشهية 
+					عطاس 
+					ضعف 
+					احمرار في الحلق و اللوزتين 
+					ظهور بقع بيضاء على اللوزتين 
+					انتفاخ اللوز و العقد الليمفاوية 
+					خشونة في الصوت 
+				 </article>
+				  <img src="img/aradhIltihebAl7alek.jpg" alt="aradhIltihebAl7alek"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                  <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>               
+            </div>   
+     </div>
+<div data-role="page" id="aradh3">
+
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>   
+                  
+            </div>
+            <div data-role="main" class="ui-content">                 
+                 <h1>أعراض وعلامات انفلونزا</h1>
+				 <article> 
+				 تظهر علامات وأعراض الإصابة بالانفرونزا على النحو التالي :
+					- سعال <br>
+					- حمى
+					- صداع
+					- تعب 
+					- دوار
+					- التهاب في الحلق
+					- لعيان و قيء 
+					- سيلان الأنف 
+					- بعض الحالات عند الأطفال قد يرافقها اسهال .
+
+					عادةً تتلاشى الحمى و الأعراض خلال 5 أيام و لكن قد يستمر السعال و التعب العام لمدة أطول .
+
+					- يُنصح بمراجعة قسم الطوارئ في المستشفى أو اقرب مركز طبي اذا عانى الطفل المريض من صعوبة في التنفس، تسارع في النفس ، ازرقاق في الجلد ، عدم شرب كمية كبيرة من السوائل ، استمرار التقيؤ و تقيؤ شديد ، عدم القدرة على النهوض ، تهيج عند الطفل ، و اذا تحسن المريض و من ثم عاد السعال و الحمى . 
+
+					- كما و يُنصح بمراجعة قسم الطوارئ في المستشفى أو اقرب مركز طبي اذا عانى المريض البالغ من صعوبة في التنفس، ألم ضاغط على منطقة الصدر ، دوار مفاجئ ، تقيؤ شديد ، اذا استمرت الحمى اكثر من 3 ايام ، و اذا تحسن المريض و من ثم عاد السعال و الحمى
+					</article>
+					 <img src="img/aradhInfelwanza.gif" alt="aradhInfelwanza"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+               <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                   
+            </div>   
+     </div>
+<div data-role="page" id="aradh4">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات التهاب الاذن</h1>
+				 <article id="test">
+				<p> من الأعراض التي تنتج عن التهاب الأذن </p>
+				ألم في منطقه الأذن.<br>
+				افرازات من الأذن .<br>
+				ارتفاع درجات الحراره.<br>
+				الشعور بالدوار .<br>
+				التعب والضعف العام .<br>
+				سيلان في الأنف احيانا .<br>
+				عدم القدرة على السماع بصوره جيدة .<br>
+				إحتقان الجيوب الأنفية أحيانا .<br>
+				.صداع <br>
+				القيء والغثيان والاسهال في بعض الأحيان .<br>
+				عدم وضوح الرؤية في بعض الأحيان .<br>
+				حدوث طنين الأذن .<br>
+				تصلب وألم في الرقبة <br>
+				 </article>
+				  <img src="img/aradhIltihebAlOdhon.jpg" alt="aradhInfelwanza"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">  
+              <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>    			
+            </div>
+     </div> 
+<div data-role="page" id="aradh5">
+
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                  
+            </div>
+            <div data-role="main" class="ui-content">      
+                 <h1>أعراض وعلامات ربو</h1>
+				 <article>
+				 من علامات وأعراض مرض الربو:<br>
+					ضيق التنفس .<br>
+					السعال وافراز بلغم .<br>
+					صفير الصدر .<br>
+					ألم خفيف في منطقة الصدر.<br>
+					تزداد الأعراض ليلا أو عند ممارسة الرياضة.<br>
+					ازرقاق الوجه و الأطراف .<br>
+					الإعياء و التعب الشديدين . <br>
+				 </article>
+				 
+				 <h1>تشخيص ربو</h1>
+				 <article>
+				 يتم تشخيص مرض الربو عن طريق : <br>
+				سيرة مرضية مفصلة و فحص سريري مفصل .<br>
+				فحص وظائف الرئة.<br>
+				التصوير الشعاعي والمقطعي للرئة .<br>
+				فحوصات الحساسيَّة المُفرطة : تعريض المريض لعدد من المواد لتحديد المادة المسببة .<br>
+				يصنف الربو حسب برنامج التوعية و الوقاية من الربو الوطني إلى:<br>
+				المتقطع أو المتناوب.<br>
+				خفيف  مزمن.<br>
+				متوسط مزمن.<br>
+				شديد مزمن.<br>
+				هذا التصنيف تم على أساس شدة الأعراض و فحص وظائف الرئة ولكن يجب التنويه على:<br>
+				يعتبر هذه التصنيف صحيح طبياً إذا لم يخضع المريض للعلاج بعد.<br>
+				قد ينتقل المريض من مرحلة إلى أخرى  مع مرور الوقت.<br>
+				قد يعاني المريض من نوبات الربو الحادة خلال أي مرحلة من هذه المراحل.<br>
+				الأطفال تحت سن الأربع سنوات قد يكون صعب تشخيصهم لأن الأعراض لديهم تختلف عن الأطفال الأكبر سناً أو البالغين.<br>
+				الربو المتقطع أو المتناوب:<br>
+				الأعراض مثل (صعوبة التنفس ، الصفير عند التنفس، ضيق النفس و السعال) تحدث  أقل من يومين خلال الأسبوع و لا تعيق ممارسة النشاطات اليومية.<br>
+				الأعراض التي تحدث ليلاً تحدث أقل من يومين شهرياً.<br>
+				فحص وظائف الرئة يدل على نتائج جيدة إذا تم الفحص بدون وجود نوبة ربو حادة لدى المريض.<br>
+				الربو الخفيف المزمن:<br>
+				الأعراض تحدث أكثر من يومين خلال الأسبوع و لكن لا تحدث يومياً.<br>
+				الأعراض تعيق المريض من القيام بأنشطته اليومية.<br>
+				الأعراض الليلية تحدث ثلاث أو أربع مرات شهرياً.<br>
+				فحص وظائف الرئة يدل على نتائج جيدة إذا تم الفحص بدون وجود نوبة ربو حادة لدى المريض.<br>
+				الربو المتوسط المزمن:<br>
+				الأعراض تحدث يومياً على الرغم من استخدام أدوية الربو سريعة المفعول يومياً.<br>
+				الأعراض تعيق المريض من القيام بأنشطته اليومية.<br>
+				الأعراض الليلية تحصل أكثر من مرة واحدة أسبوعياً و لكن لا تحدث يومياً.<br>
+				فحص وظائف الرئة لا يدل على نتائج جيدة.<br>
+				الربو الشديد المزمن:<br>
+				تحدث الأعراض طوال اليوم.<br>
+				تعيق المريض من القيام بأي نشاط.<br>
+				الأعراض الليلية تحدث كل يوم تقريباً.<br>
+				فحص وضائف الرئة و التنفس غير جيدة.<br>
+				الهدف من علاج الربو هو السيطرة على الأعراض بحيث ينتقل المريض إلى مرحلة الربو المتقطع أو المتناوب باستخدام الأدوية الموصوفة بالطريقة الصحيحة<br>
+				 </article>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                   <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>              
+            </div>     
+     </div> 
+<div data-role="page" id="aradh6">
+
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">         
+                 <h1>أعراض وعلامات روماتيزم</h1>
+				 <article> 
+				١- آلام المفاصل<br>
+				٢- تعب وإرهاق<br>
+				 ٢- قد ترتفع الحرارة وترافق آلام المفاصل<br>
+				 </article>
+				 <div>
+				  <img src="img/aradhRomatizme.jpeg" alt="aradhRomatizme"  width="100%"> 
+				  <img src="img/aradhRomatizmee.jpg" alt="aradhRomatizmee"  width="100%"></div>
+				  
+            </div>
+            <div data-role="footer" data-position="fixed">               
+                 <p><center>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</center></p>    
+  
+            </div>
+         
+     </div>
+<div data-role="page" id="aradh7">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات التهاب المعدة</h1>
+				 <article>
+				 <p>تظهر علامات وأعراض الإصابة بهذا المرض على النحو التالي :</p>
+				 - فقدان الشهية وعدم القدرة على كسب الوزن .<br>
+				- الشعور بالغثيان والتقيء .<br>
+				- ألم حاد في البطن .<br>
+				- تغير لون البراز اثر خروج الدم .<br>
+				- القيء المستمر وقد يكون مصحوب بالدم أحياناً .<br>
+				- حدوث الإسهال .<br>
+				 </article>
+				  <img src="img/aradhiltehebAlma3da.jpg" alt="aradhiltehebAlma3da"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+               <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>      			
+            </div>
+     </div>
+<div data-role="page" id="aradh8">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات انقطاع النفس</h1>
+				 <article>
+				<p> اعراض انقطاع التنفس :</p>
+				- انقطاع مؤقت للتنفس لمدة لا تزيد عن 10 ثواني<br>
+				- الصداع<br>
+				- صعوبات في التركيز و الذاكرة<br>
+				- الاكتئاب<br>
+				- الشخير اثناء النوم <br>
+				 </article>
+				  <img src="img/tanafos.jpg" alt="tanafos"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed"> 
+                      <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+     </div>
+<div data-role="page" id="aradh9">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات الزهايمر</h1>
+				 <article>
+				<p> تظهر علامات و اعراض الاصابة بالمرض على النحو التالي:</p>
+				ضعف الذاكرة و النسيان المتكرر ، و تكرار الجمل والاسئلة واعادتها دون ان يدرك المريض انه قد طرح السؤال من قبل ، نسيان المُصاب لاسماء افراد عائلته <br>
+				تراجع في قدرات المريض المختلفة منها القدرة على التخطيط و التنظيم .<br>
+				نسيان كيفية تأدية الأعمال اليومية (إعداد الطعام – ترتيب المنزل – غسيل الأسنان ) .<br> 
+				ضعف في استخدام اللغة و التعبير بحيث لا يكون هناك اي مرض يفسر هذه الاعراض غير مرض الزهايمر.<br>
+				صعوبة القيام بالمهمات التي تطلب خطوات تسلسلية مثل: الطبخ، اللعب بلعبة معينة .<br>
+				مع مرور الوقت و تقدم الحالة ينسى المريض كيف يقوم ببعض الاعمال اليومية مثل ارتداء الملابس او الاستحمام .<br> 
+				بعض المرضى قد يعانون من حالات الإكتئاب و العزلة الإجتماعية و العدوانية . <br>
+				فقدان القدرة على الحكم الصحيح على المواقف.<br>
+				في المراحل المتقدمة قد يعاني المريض من صعوبة البلع .<br> 
+				 </article>
+				  <img src="img/aradhZahaymer.jpg" alt="aradhZahaymer"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed"> 
+                    <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh10">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات التهاب الكبد</h1>
+				 <article>
+				<p> تظهر علامات وأعراض الاصابة بالتهاب الكبد على النحو التالي:</p>
+					- فقدان الشهية للطعام. <br>
+					- الغثيان. <br>
+					- الحمى وارتفاع درجة حرارة الجسم. <br>
+					- الم او عدم ارتياح في منطقة اعلى البطن.<br>
+					- اليرقان.<br>
+					- نقصان سريع في الوزن.<br>
+					- القيء المستمر.<br>
+				 </article>
+				  <img src="img/aradhiltihebkabed.jpg" alt="aradhiltihebkabed"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh11">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات عسر الهضم</h1>
+				 <article>
+				<p> تظهر علامات وأعراض الإصابة ببعسر الهضم على النحو التالي : </p>
+				- الشعور المبكر بالشبع أثناء تناول الوجبة . <br>
+				- الشعور بالضيق وعدم الارتياح في المنطقة العلوية للبطن بعد تناول الوجبة . <br>
+				- الشعور بالحرقة والانتفاخ في الجزء العلوي للبطن . <br>
+				- الغثيان . <br>
+				- الشعور بطعم حامض في الفم<br>
+				 </article>
+				 <h1>تشخيص عسر الهضم</h1>
+				 <article>
+				<p> يعتمد الطبيب في تشخيصه للعامل المُسبب لعسر الهضم على الاجراءات التالية : </p>
+				- الفحص السريري للمريض . <br>
+				- الفحص المخبري للكشف عن اضطرابات الغدة الدرقية .<br>
+				- الفحص المخبري للبراز و فحص النفس للكشف عن البكتيريا الملوية البوابية . <br>
+				- تنظير القولون للكشف عن وجود اي اضطرابات في جدار القناة الهضمية .<br>
+				- تصوير منطقة البطن بالاشعة. <br>
+				 </article>
+				  <img src="img/osoralhadhem2.jpg" alt="osoralhadhem"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh12">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات صداع التوتر</h1>
+				 <article>
+				 <p>تظهر علامات وأعراض الإصابة بهذا المرض على النحو التالي :</p>
+					- ألم في الراس والشعور بالضغط من كل جوانب الراس الرقبة وخلف العين<br>
+					- ضعف عام وعدم الإرتياح <br>
+					- عدم وضوح الرؤيا<br>
+				 </article>
+				 <h1>تشخيص صداع التوتر</h1>
+				 <article>
+				 <p>يلجأ الطبيب لتشخيص هذا المرض باحد التدابير التالية أو كلها مجتمعة :</p>
+					الفحص السريري<br>
+					التصوير الاشعاعي ( X-ray )<br> 
+					التصوير المقطعي المحوسب ( CT )<br> 
+					التصوير بالرنين المغناطيسي ( MRI)<br>
+				 </article>
+				  <img src="img/sousaTawator2.jpg" alt="sousaTawator"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh13">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات صرع</h1>
+				 <article>
+				 <p>تظهر علامات وأعراض الإصابة بالصرع على النحو التالي :</p>
+				- تيبس العضلات في الذراع , القدم أو الوجه .<br>
+				- الانتفاض العضلي في جانب واحد من الجسم أو كلاهما تبعا للوضع الصحي للمريض .<br>
+				- خلق الاصوات العشوائية المزعجة وكلام غير مفهوم من المريض أحياناً  .<br> 
+				- فقدان القدرة على الاستجابة للمحيط .<br>
+				- فقدان الوعي وعدم القدرة على رؤية الأشخاص المحيطين .<br>
+				 </article>
+				 <h1>تشخيص صرع</h1>
+				 <article>
+				 <p>قد يلجأ الطبيب إلى التدابير التالية لتشخيص هذا المرض :</p>
+				- الفحص السريري وأخذ تاريخ المريض الصحي والعائلي .<br>
+				- تخطيط كهربية الدماغ الذي يكشف عن النشاط الكهربائي في الدماغ .<br>
+				- التصوير بالرنين المغناطيسي للدماغ ( MRI ) .<br>
+				- تحليل عينة الدم وفحصها فحص شامل وقياس تراكيز أملاح الدم والبحث عن اي التهابات أخرى .<br>
+				 </article>
+				  <img src="img/saraa2.jpg" alt="saraa"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh14">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات صلع</h1>
+				 <article>
+				  <p> تبدأ اعراض الصلع عند الرجال بفقدان الشعر من مقدمة الراس غالبا وتكون على شكل حرف M ومن ثم يتراجع للوراء الى ان يصبح الشعر ارق واخف واقصر ويصبح بشكل حرف U </p>
+                  <p>اما عند الاناث:</p>
+                  <p> يبداأ تساقط الشعر من اعلى الراس (من تاج الراس) ويمتد الى ان يصل الى مركز الراس( منتصف الراس) مع بقاء الشعر في مقدمة الراس.</p>
+				 </article>
+				 <h1>تشخيص صلع</h1>
+				 <article>
+				  <p>يتم تشخيص الاصابة بالصلع بعد اجراء بعض الفحوصات التي تتدل على عدم وجود مسببات اخرى لفقدان الشعر مثل الاضطرابات الاغذائية او الامراض الجلدية</p>
+				 </article>
+				  <img src="img/solo2.jpg" alt="solo"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh15">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات قصور القلب</h1>
+				 <article>
+				    <p>تظهر علامات وأعراض الإصابة بهذا المرض على النحو التالي :</p>
+					- الضعف العام وعدم القدرة على القيام بالنشاطات اليومية .<br>
+					- الوذمة وتجمع السوائل في الاطراف أو في التجويف البطني .<br>
+					- تواتر معدل نبضات القلب .<br>
+					- زيادة الوزن بسبب تراكم السوائل .<br>
+					- فقدان الشهية .<br>
+					 - ضعف التركيز . <br>
+					- القيء والغثيان أحياناً .<br> 
+					- السُعال المزمن .<br>
+					- ألم الصدر .<br>
+					- ضيق التنفس والذي قد يمنع المريض من النوم جيداو يكون في حالتي الراحة أو حالة بذل الجهد .<br>
+					-التبول الليلي .<br>
+				 </article>
+				 <h1>تشخيص قصور القلب</h1>
+				 <article>		 
+				<p> قد يلجأ الطبيب إلى التدابير التالية لتشخيص هذا المرض :</p>
+				<br>- معرفة التاريخ الطبي او العائلي للمريض , اصابته بأية اضطرابات تزيد فرصة حدوث فشل القلب الاحتقاني كالسكري , ارتفاع ضغط الدم , عيوب صمامات القلب , داء الشريان التاجي والذبحة الصدري
+				<br>- الفحص السريري للمريض باستخدام السماعة الطبية حيث يقوم الطبيب بالاستماع بشكل دقيق لنبضات قلب المريض
+				<br>- الفحص السريري للوذمة (السوائل المتراكمة في مكان معين ) . 
+				<br>- الأشعة السينية (X-ray) : حيث تظهر هذه الصورة أي ترسبات كلسية في أنسجة الصمام.
+				<br>- مخطط صدى القلب (Echocardiogram) وفحص القدرة القذفية للقلب بتقدير كمية الدم الذي يخرج في النبضة الواحدة (( The Ejection Fraction (EF)
+				<br>- صورة الرنين المغناطيسي (MRI) .
+				<br>- تخطيط القلب (ECG ) .
+				<br>- القسطرة القلبية .
+				<br>- فحص الجري وقياس مقدار تعب العضله القلبية .
+				<br>- فحص عينة دم وقياس تركيز بعض انواع الببتدات مثل ((B-type Natriuretic Peptide (BNP) .
+				<br>- فحص كوليستيرول الدم .
+				<br>- خزعة عضلة القلب : وهو فحص يتم بأخذ عينة من عضلة القلب , يكشف عن وجود امراض في عضلة القلب .
+                </article>
+				  <img src="img/9osour9aleb2.jpg" alt="9osour9aleb"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh16">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات قشرة الراس</h1>
+				 <article>
+				 اعراض الاصابة بقشرة الراس: 1- رقائق او طبقة بيضاء بين الشعر من الممكن ان تنتشر على الكتفين او على الشعر. 2- حكة الراس 3- تساقط الشعر.
+				 </article>
+				<h1>أنواع القشرة</h1>
+				<h2>قشرة الرأس الدهنية</h2>
+				<article>
+				1-ظهور طبقة من القشور الملتصقة بفروة الراس تميل للون الاصفر و يكون قوامها اقرب لقوام العجين.<br>
+				2-ظهور بثور و التهابات مؤلمة بالراس يصاحبها حكة شديدة و قد تصل لحد التقيح في الحالات المتقدمة.<br>
+				3-تساقط الشعر بغزارة مع ملاحظة ضعف البصيلات و التفاف القشور عليها.<br>
+				4-وجود القشرة على الحواجب و منبت الرموش في بعض الحالات.<br>
+				</article>
+				<h2>قشرة الرأس الجافة</h2>
+				<article>
+				<p>فيها تكون القشور بيضاء اللون منفصلة عن بعضها بشكل واضح على الملابس.</p>
+				<p>جفاف و احمرار شديد في فروة الراس مصحوبة بالحكة كما يبدو الشعر باهتا و متقصفا،يمكن ملاحظة آثار الجفاف على بشرة الوجه ايضا فظهور نفس الاعراض مع الاحمرار و تقشر تعني ان بشرة الانسان عموما تميل الى الجفاف.</p>
+				</article>
+				
+				  <img src="img/kichra2.jpg" alt="kichra"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh17">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات رمد ربيعي</h1>
+				 تشمل اعراض الرمد الربيعي على 1- حكة في العين 2- احمرار العين 3- ظهور افرازات في العين 4-العيون الدامعة 5- ظهور الاوعية الدموية التي في العين 6- تورم في الجفون خصوصا في الصباح<article>
+				 </article>
+				 <h1>تشخيص رمد ربيعي</h1>
+				 <article>
+				 يتم تشخيص الاصابة بالرمد الربيعي من العلامات والاعراض التي يأتي بها المصاب , كما يظهر ارتفاع في كريات الدم البيضاء في الدم, كما ان فحص التحسس يكون ايجابي
+				 </article>
+				  <img src="img/ramad2.jpg" alt="ramad"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh18">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات سعال ديكي</h1>
+				 <article>
+				 <p>تتفاوت علامات وأعراض الاصابة بالسعال الديكي اعتماداً على مرحلة العدوى كالتالي :</p>
+				<p>المرحلة المبكرة للعدوى :</p>
+				- سيلان أو انسداد الأنف .<br>
+				- العطاس .<br>
+				- فرط دمع العين .<br>
+				- السعال الجاف .<br>
+				- ارتفاع درجة الحرارة الطفيف .<br>
+				- احتقان الحلق .<br>
+				- الشعور العام بالاعياء .<br>
+				<p> المرحلة الانتيابية :</p>
+				- نوبات السعال الشديدة المصحوبة بالبلغم .<br>
+				- صدور صوت الشهيق المصاحب للتنفس بعد السعال .<br>
+				- التقيؤ بعد السُعال .<br>
+				- احمرار الوجه الناجم عن الاجهاد المرافق للسعال .<br>
+				 </article>
+				 <h1>تشخيص سعال ديكي</h1>
+				 <article>
+				 يعتمد تشخيص الاصابة بالسعال الديكي على الأعراض الظاهرة على الطفل والفحص السريري للتنفس باستخدام السماعة الطبية ويتم تأكيد التشخيص بالفحص المخبري للدم للكشف عن الأجسام المُضادة للبكتيريا المسببة للعدوى .
+				 </article>
+				 <br>
+				  <img src="img/soualDiki2.jpg" alt="soualDiki"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh19">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>تشخيص السمنة</h1>
+				 <article>
+				 يعتمد تشخيص الاصابة بالسمنة على مؤشر كتلة الجسم ( BMI ) الذي يرتبط بصحة مظهر الجسم اعتماداً على طول ووزن الجسم ووفقاً للمعادلة التالية : وزن الجسم بوحدة الكيلوغرام / مربع الطول بوحدة المتر , حيث يكشف ارتفاع مؤشر كتلة الجسم عن 30 عن الاصابة بالسمنة كما يتم حساب محيط الخصر كمؤشر على دهون البطن , وتُشخص السمنة بزيادة المحيط عن 35 انشاً للسيدات و 40 للرجال .
+				 </article>
+				 <h1>التعايش مع السمنة</h1>
+				 <article>
+			     	<p> يفضل اتباع التعليمات التالية للتخفيف والتعايش مع السمنة :</p>
+					<p>الموضوع لا يتعلق فقط بحمية معينة لمدة زمنية محددة بل يجب تعلم واكتساب عادات غذائية صحية وتجنب العادات الغذائية الخاطئة وجعل هذا النظام الصحي نمط لمدى الحياة لما له تأثير ليس فقط على الوزن بل على الصحة بشكل عام، وينصح بما يلي :</p>
+					تناول وجبات منتظمة يوميا وفي نفس الاوقات وعدم تخطي اي وجبة خلال اليوم<br>
+					شرب كمبات كافية من الماء يوميا<br>
+					تناول 5 حصص او اكثر من الخضار الطازجة والمطبوخة<br>
+					تناول 2-3 حصص من الفاكهة ويفضل الفاكهة الطازجة افضل من العصائر لاحتواء العصير على كميات كبيرة من السكر<br>
+					تجنب الأطعمة الدهنية والدسمة كالأطعمة المقلية والأطعمة السريعة الجاهزة<br>
+					تقليل كمية الحلويات والسكريات المتناولة<br>
+					تحديد حصص معينة من النشويات عند كل وجبة ( الخبز، الأرز، البطاطس، المعكرونة)<br>
+					زيادة النشاط البدني اليومي<br>
+					تناول منتجات الالبان قليلة الدسم<br>
+				 </article>
+				  <img src="img/Simna2.jpeg" alt="Simna"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh20">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات سرطان</h1>
+				 <article>
+				 - الإحساس بالتعب الشديد<br>
+				- فقدان الوزن دون سبب<br>
+				- الإصابة بالحمى وارتفاع الحرارة والتعرق الليلي<br>
+				- قلة الشعور بالجوع<br>
+				- الشعور بعدم الراحة أو الألم في الجسم<br>
+				- السعال والشعور بألم في الصدر<br>
+				- تغيرات في عادات التبرز مثل الإسهال أو الإمساك<br>
+				- نزيف أو إفرازات غير طبيعية<br>
+				- قرحة جلدية لا تشفى<br>
+				- تغييرات واضحة في الثالول أو الشامة.<br>
+				 </article>
+				 <h1>تشخيص سرطان</h1>
+				 <article>
+				 -الفحص السريري والفحص الذاتي<br>
+				-التصوير بالأشعة السينية مثل تصوير الثدي<br>
+				-الفحوصات المخبرية الأخرى الخاصة بكل نوع مثل فحص مسحة عنق الرحم وفحص الدم للموثة وفحص الدم الخفي للقولون<br>
+				-التنظير مثل تنظير القولون وعنق الرحم<br>
+				 </article><br>
+				  <img src="img/salatan2.jpg" alt="salatan"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+<div data-role="page" id="aradh21">
+            <div data-role="header">
+                 <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                    
+            </div>
+            <div data-role="main" class="ui-content">   
+                 <h1>أعراض وعلامات السكري</h1>
+				 <article>
+				 <p> تظهر علامات وأعراض الاصابة بداء السكري على النحو التالي :</p>
+					تكرار معدل التبول والتسبب بالجفاف .<br>
+					فقدان الوزن . <br>
+					الغثيان والتقيؤ .<br> 
+					فرط العطش . <br>
+					فرط الشهية .<br>
+				 </article>
+				 <h1>تشخيص السكري</h1>
+				 <article>
+				 يعتمد تشخيص الاصابة بالسكري على الفحص المخبري لتركيز الغلوكوز في الدم حيث أن ارتفاعه عن 126 مغ / دسل أو 200 مغ / دسل في العينة المخبرية للدم مؤشراً على داء السكري , كما يخضع المريض لفحص احتمال الغلوكوز الفموي ويتم من خلاله اعطاء كمية مُحددة من الغلوكوز و احتساب تركيزه في الدم لخمس مرات ولمدة ثلاثة ساعات ويُلاحظ من خلاله معدل انخفاض الغلوكوز بعد ارتفاعه الملحوظ في بداية الفحص .
+                 اما السكري الحملي فيتم تشخيصه في المراحل المتوسطة او النهائية للحمل بالفحوصات المخبرية لغلوكوز الدم أو فحص احتمال الغلوكوز .
+				 </article><br>
+				  <img src="img/sokari2.jpg" alt="sokari"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">   
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     			
+            </div>
+</div>
+
+
+<!-- recherche fi el 3ilej -->
+       <div data-role="page" id="ilej">
+
+            <div data-role="header">
+                      <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>
+            </div>
+          <div data-role="main" class="ui-content">            
+               <form class="ui-filterable">
+                   <input id="searchInput2" type="search" placeholder="ابحث عن علاج المرض ">
+               </form>
+               <ul data-role="listview" data-input="#searchInput2" data-filter="true">
+					<li data-filtertext="الزكام الرشح زكام العُطاس الصداع و الحمى علاج الزكام"><a href="#ilej1"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>الزكام</h2></a></li>
+					<li data-filtertext="انف اذن وحنجرة التهاب الحلق إلتهاب البلعوم"><a href="#ilej2"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>التهاب الحلق</h2></a></li>
+					<li data-filtertext="الانفلونزا معدٍ  العطس أو السعالالجهاز التنفسي علاج انفلونزا"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><a href="#ilej3"><img src="img/diri.png" width="42" height="42"><h2>الانفلونزا</h2></a></li>
+					<li data-filtertext="التهاب الاذن أنف أذن حنجرة   الإلتهاب"><a href="#ilej4"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>التهاب الاذن</h2></a></li>
+					<li data-filtertext=" ربو ض تنفسي تحسسي مزمن  الشعب الهوائية"><a href="#ilej5"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>ربو</h2></a></li>
+					<li data-filtertext="روماتيزم الروماتيزمية المفاصل العظام رثِّية"><a href="#ilej6"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>روماتيزم</h2></a></li>
+					<li data-filtertext="أمراض الجهاز الهضمي جدار المعدة الداخلي بطانة المعدة التهاب المعدةالإلتهاب"><a href="#ilej7"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>التهاب المعدة</h2></a></li>
+					<li data-filtertext="انقطاع النفس أمراض الجهاز التنفسي "><a href="#ilej8"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>انقطاع النفس</h2></a></li>
+					<li data-filtertext=" الزهايمر زهايمر اضطراب الدماغ فقدان الذاكرة "><a href="#ilej9"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>الزهايمر</h2></a></li>
+					<li data-filtertext="التهاب الكبد عدوى فيروسية أمراض باطنية  تلف الخلايا الكبدية"><a href="#ilej10"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>التهاب الكبد</h2></a></li>
+					<li data-filtertext="عسر الهضم  اعلى البطن الحرقة المعدة"><a href="#ilej11"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>عسر الهضم</h2></a></li>
+					<li data-filtertext="صداع التوتر ألم   الرأس  انقباض العضلات جمجمة"><a href="#ilej12"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>صداع التوتر</h2></a></li>
+					<li data-filtertext=" الدماغ عضلية قصيرة  نبضات تشنجات"><a href="#ilej13"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>صرع</h2></a></li>
+					<li data-filtertext="صلع فقدان الشعر لحات"><a href="#ilej14"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>صلع</h2></a></li>
+					<li data-filtertext="قصور القلب فشل القلب الاحتقاني العضلة القلبية ضخ الدم "><a href="#ilej15"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>قصور القلب</h2></a></li>
+					<li data-filtertext=" قشرة الراس طبقة بيضاء خصيلات الشعر "><a href="#ilej16"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>قشرة الراس</h2></a></li>
+					<li data-filtertext="رمد ربيعي التهاب تورم  الانسجة المبطنة للجفون  بياض العين"><a href="#ilej17"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>رمد ربيعي</h2></a></li>
+					<li data-filtertext="لعدوى البكتيرية القناة التنفسية الأطفال الرضع الأطفال الصغار لبكتيريا"><a href="#ilej18"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>سعال ديكي</h2></a></li>
+					<li data-filtertext="ارتفاع نسبة الدهون  زيادة وزن الجسم الدهون"><a href="#ilej19"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>السمنة</h2></a></li>
+					<li data-filtertext="سرطان الورم الخبيث الاورام الخبيثة"><a href="#ilej20"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>سرطان</h2></a></li>
+					<li data-filtertext="الاضطراب المزمن السكري هرمون الانسولين  البنكرياس الغلوكوز"><a href="#ilej21"class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-arrow-l ui-btn-icon-left"><img src="img/diri.png" width="42" height="42"><h2>السكري</h2></a></li>
+               </ul>
+         </div>
+      </div>
+
+
+
+<!-- al 3ilej -->
+ <div data-role="page" id="ilej1">
+         <div data-role="header">
+               <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>    
+           </div>
+            <div data-role="main" class="ui-content">             
+                 <h1>علاج الزكام </h1>
+				 <article>الزكام ينتج عن عدوى فيروسية ، لذلك لا يوجد علاج ذو جدوى لعلاج الفيروسات التي تسبب الزكام انما تخف الاعراض مع الوقت ، و قد يصف قد يصف بعض العلاجات التي قد تخفف الاعراض مثل : 
+				الأدوية المعالجة للاحتقان و السيلان لتخفيف الأعراض .
+				العقاقير الدوائية المسكنة للألم . 
+				و يمكن تناول فيتامين ج يساعد في التخفيف من الأعراض و مقاومة الفيروس ، يمكن أن يكون على شكل مكملات تباع في الصيدليات أو يوجد في الحمضيات مثل الليمون والبرتقال .
+				 </article>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                     <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>     
+            </div>
+</div>
+ <div data-role="page" id="ilej2">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos=""class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                     
+            </div>
+            <div data-role="main" class="ui-content">            
+                 <h1>علاج التهاب الحلق</h1>
+				 <article>
+				 قد يشمل علاج التهاب الحلق على :
+				في أغلب الحالات يكون المرض فيروسي المنشأ ولا يحتاج لعلاج دوائي بالمضادات الحيوية ويزول دون تدخل طبي في خلال 7 أيام وخلافا لذلك يجب مراجعة الطبيب فورا
+				قد يوصي الطبيب بمسكنات الم و مخفضات حرارة .
+				شرب السوائل الدافئة مثل الشاي أو الشاي مع الليمون والعسل. 
+				الغرغرة عدة مرات يوميا بالماء الدافئ والملح (1/2 ملعقة صغيرة من الملح في كوب من الماء ). 
+				اذا كان السبب هو عدوى بكتيرية قد يوصي الطبيب بمضادات حيوية .
+				اذا كان المريض يعاني من حساسية قد يوصي الطبيب بادوية مضادة للهيستامين. 
+				 </article> 
+				 <h1>الأدوية المتعلقة ب التهاب الحلق</h1>
+				 <p>(Dextromethorphan and Guaifenesin) ديكستروميثورفان وغايفينيسين</p>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                     
+            </div>     
+</div>	 
+<div data-role="page" id="ilej3">
+
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>         
+            </div>
+            <div data-role="main" class="ui-content">
+                 <h1>علاج انفلونزا</h1>
+				 <article>
+				 من الإجراءات العلاجية المتبعة:
+				 <ul>
+				<li> الراحة و اخذ قسط كافٍ من النوم</li>
+				<li>شرب كمية كبيرة من السوائل</li>
+				<li> أخذ حمام دافئ</li>
+				<li>قد يُوصي الطبيب بوضع سائل ارواء داخل الانف للتقليل من الاحتقان</li>
+				<li> يجب الإمتناع عن التدخين أو التعرض لدخان السجائر  </li>
+				</ul>
+				 </article>
+				 <h2>للوقاية من التهاب الحلق  </h2>
+				 <article>
+				 عدم التواجد حول الاشخاص الذين يعانون من التهاب في الحلق .
+					المحافظة على النظافة الشخصية
+					عدم مشاركة الاغراض الشخصية مع الشخص المصاب
+					عدم لمس السطوح التي يوجد عليها عدوى 
+				 </article>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                 
+            </div>     
+</div> 
+<div data-role="page" id="ilej4">
+
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                      
+            </div>
+            <div data-role="main" class="ui-content">     
+                 <h1>علاج التهاب الاذن</h1>
+				 <article>
+				 يعتمد علاج هذا المرض على :
+				بعض الحالات التي تنتج عن عدوى بكتيرية يلزمها وصف المضادات الحيوية .
+				الحالات التي يعاني منها المريض من الألم أو الحمى يجب استخدام العقاقير الدوائية المسكنة للألم . 
+				قد يحتاج الطبيب الى وصف علاجات تعمل على إزالة الإحتقان .
+				قد يحتاج الطبيب الى وصف مضادات التحسس المسماه مضادات الهستامين في بعض الأحيان .
+				قد يحتاج الطبيب في بعض لأحيان الى إجراء تدخل جراحي لسحب بعض السوائل وتخفيف الضغط على الغشاء الإذني .
+				 </article>
+				 <h1>الأدوية المتعلقة ب التهاب الاذن</h1>
+				 <article>
+				 (Cefalexin) سيفاليكسين<br>
+				 (Rifamycin) ريفاميسين<br>
+				 (antipyrine and benzocaine) انتيبايرين و بنزوكاين<br>
+				 </article>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                  
+            </div>     
+</div>	 
+<div data-role="page" id="ilej5">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                        
+            </div>
+            <div data-role="main" class="ui-content">       
+                 <h1>علاج ربو</h1>
+				 <article>
+				 من الإجراءات العلاجية المتبعة لعلاج مرض الربو:<br>
+					علاج أعراض المرض و الالتهاب  .<br>
+					يُنصح المريض بالإبتعاد عن كل ما يثير الربو و التحسس .<br>
+					اعطاء أجسام مضادة اذا تم حصر مسببات محدودة للربو .<br>
+					العلاج المناعي  .<br>
+					يجب على جميع مرضى الربو استخدام موسعات القصبات الهوائية ( ومنها ما يستخدم بشكل مستمر و هذه  تحتوي على موسعات القصبات مع الكورتيزون ، و بعضها الأخر يحتوي على موسعات قصبات فقط و تستخدم و قت الحاجة ) . <br>
+					استخدام مضادات الهيستامين و مقشعات البلغم . <br> 
+					الحالات الحادة من الربو يجب علاجها في المشفى لمراقبة تركيز الاكسجين في الدم ومنع حدوث مضاعفات خطيرة .<br>
+					كل طفل يعاني من الربو تصيبه نوبة الربو الحادة بشكل يختلف عن طفل آخر.<br>
+					بعضهم يعاني فقط  من السعال أثناء الليل و بعضهم الآخر تصيبه النوبة أثناء ممارسة الرياضة أو عند  إصابته بالبرد أو الزكام.<br>
+					لمواجهة هذه النوبات و التعامل معها بشكل صحيح يجب على الأهل الانتباه إلى إشارات معينة تحدث للطفل قبل حدوث النوبة و هذه الإشارات أو الأعراض قد لا تعني أنه بالتأكيد ستحدث نوبة ولكن أحياناً تساعد الأهل على التفكير بخطة للعلاج.<br>
+					هذه الأعراض قد تشمل:<br>
+					الصفير عند التنفس.<br>
+					السعال المزمن بدون إصابة الطفل بالزكام.<br>
+					ضيق في التنفس.<br>
+					ألم الحلق.<br>
+					سرعة أو عدم انتظام التنفس.<br>
+					انقطاع النفس عند القيام بالأنشطة اليومية.<br>
+					الشعور بالإرهاق.<br>
+					اضطربات خلال النوم وعدم الحصول على نوم مريح.<br>
+					عند حدوث أي من هذه الأعراض يجب على الأهل التواصل مع الطبيب لإجراء اللازم قبل تطور الحالة و عدم القدرة على السيطرة عليها إلا في غرفة الطوارئ<br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب ربو</h1>
+				 <article>				 
+				(epinephrine) ابنفرين
+				<br>(Adrenaline) ادرينالين
+				<br>(Formoterol) فورموترول
+				<br>(Salmeterol) سالميترول<br>
+				(Salbutamol (albuterol) سالبتامول<br>
+				(Ipratropium) ابراتروبيوم<br>
+				(Beclomethasone) بكلوميثازون<br>
+				(budesonide inhaler ) بودسونيد للاستنشاق<br>
+				(Fluticasone) فلوتيكازون<br>
+				(Montelukast) مونتلوكاست<br>
+				(Zafirlukast) زافرلوكاست<br>
+				(Ephedrine) ايفدرين<br>
+				(Cromoglycate) كروموجليكيت<br>
+				(epinephrine) ايبينيفرين<br>
+				(Terbutaline) تيربيوتالين<br>
+				 </article>
+				   <img src="img/ilejRobo.jpg" alt="ilejRobo"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>                     
+            </div>     
+</div>	 
+<div data-role="page" id="ilej6">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج روماتيزم</h1>
+				 <article> 
+				 الابكار في العلاج هو احد الخطوات المتبعة للسيطرة على الامراض الرثوية وبشكل عام يتوقف العلاج على سبب المرض كإزالة بؤر التعفن، والآخر موض
+				 عي تستخدم فيه علاجات متنوعة ترمي إلى إزالة الالتهاب وتسكين الألم وتصحيح التشوهات إما بأجهزة خاصة، أو بالجراحة. تدل الأبحاث الجديدة أن السيتوك
+				 ينات، وهي مجموعة من المواد الكيميائية تنتجها خلايا مختلفة في الجسم، قد تكون مسؤولة عن إنتاج الألم المزمن المرافق للالتهاب المفاصل الرثي، والأدوية التي تؤثر على إفراز الستوكينات أو تكبح عملها يمكن أن تقلل الألم المزمن. وهناك العديد من الأدوية مضادات ال
+				 سيتوكين، التي يجري تداولها لعلاج حالات الألم المزمن مثل التهاب المفاصل الرثية, وداء كرون. كما يستعمل البحث مضادات السيتوكين الثالوميد لتأثيره في علاج الألم المزمن في الْتِهابُ العَنْكَبوتِيَّة. ويجب تجنب المأكولات التي تحتوي على قدر كبير من
+				 الماء. وهناك علاج تجريبي يعرف بـ،إزالَةُ التَّحَسُّس المؤيد إنزيمياً لعلاج التهاب المفاصل الرثي وأمراض مناعة ذاتية أخرى. وهو يستخدم محاليل المستأرجات( في هذه الحالة كولاجين2 )وأنزيم آخر هو بيتا غلوكورونيداز ، الذي تستجيب له 
+				 الـخلايا اللمفية العادية ، بإزالة تحسس مفضلة، أكثر من التحسس.والنتائج البدائية مشجعة، ولكن العلاج ما زال في مرحلة مبكرة من التطوير
+				 </article>
+				 <h1>الأدوية المتعلقة ب روماتيزم</h1>
+				 <article>
+                 (Diclofenac Sodium & Lidocaine HCl) ديكلوفيناك الصدوديوم مع هيدروكلورايد الليدوكاين
+				 <h3>تصنيف الدواء: <h3>
+                  مضادات الالتهابات | Anti-inflammatory<br>
+				  مسكن ألم غير أفيوني | Non-opoid Analgesics<br>
+				  مخدر موضعي | Local Anesthetic<br>
+				 </article><br>
+				   <img src="img/sousaTawator3.jpg" alt="sousaTawator"  width="50%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej7">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج التهاب المعدة</h1>
+				 <article>
+				<p> من الإجراءات العلاجية المتبعة للمرض :</p>
+				العقاقير الدوائية التي تعمل على التقليل من حموضة المعدة بإحدى الطرق التالية :<br>
+				- تثبيط نشاط الخلايا المنتجة للأحماض المعدية .<br>
+				- تقليل كمية الأحماض المفرزة<br>
+				- معادلة أحماض المعدة .<br>
+				- استخدام المضادات الحيوية تبعا لنوع البكتيريا المسببة .<br>
+                 </article>
+				 <h1>الأدوية المتعلقة ب التهاب المعدة</h1>
+				 <article>
+					<p>قد يصف الطبيب إحدى العقاقير الدوائية التالية :</p>
+					<p>العلاجات المستخدمة لتقليل حموضة المعدة</p>
+					- Omeprazole ( اوميبرازول )<br>
+					- Esomeprazole ( ايسوميبرازول )<br>
+					- Pantoprazole ( بانتوبرازول )<br>
+					- Famotidine ( فاموتيدين )<br>
+					- Ranitidine ( رانيتيدين )<br>
+					- Calcium carbonate ( كربونات الكالسيوم )<br>
+					مضادات الحيوية البكتيرية ومنها :</p>
+					- (Erythromycin) اريثرومايسين<br>
+					- (Ciprofloxacin) سبروفلوكسيين<br>
+					- (Amikacin ) أميكيسين<br>
+					- ( Amoxicillin) اموكسيسيلين<br>
+					- (Cefixim ) سيفيكسيم<br>
+					- (Doxycyclin) دوكسيسيكلين.<br>				 
+					</article>
+				 <h1>التعايش مع التهاب المعدة</h1>
+				 <article> 
+				  <p> يفضل اتباع التعليمات التالية للتخفيف والتعايش مع المرض :</p>
+					شرب كميات وفيرة من السوائل وخاصة الماء يومياً .<br>
+					- عدم شرب المشروبات الغازية ، الكحول أو الكافيين خلال فتره العلاج و الإبتعاد عنها بعد العلاج .<br>
+					- الإهتمام بالنظافة الشخصية .<br>
+					- تناول غذاء صحي وسليم غني بالخضار و الفواكه الطازجة .<br>
+					- تجنب الأطعمة الحارة ، الدهنية ، و المقلية .<br>
+					- غسل اليدين بشكل متكرر بالماء والصابون قبل تناول الطعام او بعد استخدام دورة المياه<br>
+				 </article> 
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej8">
+            <div data-role="header">
+                <h1>صحتي </h1>
+                <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج انقطاع النفس</h1>
+				 <article>
+                  يتم العلاج عن طريق اجرارءات بسيطة مثل تخفيف الوزن و الابتعاد عن الدخان و الكحول و ترك الادوية المسببة للحالة . و من ثم اللجوء
+				  لاجهزة تعطي الضغط الهوائي الإيجابي المستمر او استخدام ادوات بسيطة خاصة توضع داخال الفم . و ممكن اللجوء للجراحة 
+				 </article>
+				 <h1>الأدوية المتعلقة ب انقطاع النفس</h1>
+				 <article>لا يوجد علاج دوائي للحالة </article>
+				 <img src="img/shortbreath.jpg" alt="shortbreath" width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej9">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج الزهايمر</h1>
+				 <article>
+                 <p>من الاجراءات العلاجية المتبعة لعلاج مرض الزهايمر :</p>
+					الحد من تراجع القدرات الدماغية و المعرفية اهمها الذاكرة .<br>
+					لا يوجد دواء شافٍ ولكن يوجد بعضها التي تساعد على التعايش مع المرض .<br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب الزهايمر</h1>
+				 <article> 
+				 (Donepezil) دونيبيزيل<br>
+					(Rivastigmine) ريفاستجمين<br>
+					(Memantine) ميمانتين<br>
+					(Folic acid & Vitamin B6 & Vitamin B12) حمض الفوليك مع فيتامين ب6 مع فيتامين ب12<br>
+				 </article>
+				 <h1>التعايش مع الزهايمر</h1>
+				 <article>
+				 <p>يفضل اتباع الانماط الحياتية التالية للتخفيف و التعايش مع مرض الزهايمر :</p>
+				التعايش مع الاكتئاب و محاولة التخفيف منه .
+				تهيئة العائلة للتعامل مع المريض .
+				ممارسة التمارين الرياضية المنتظمة تساعد لتحسين المزاج و تحسين صحة القلب والمحافظة على صحة العقل .
+				نظام غذائي منخفض في الدهون وغني بالفواكه والخضروات للحفاظ على صحة الخلايا الدماغية و يجب أن يكون الطعام المقدم لمريض الزهايمر غنى ببعض العناصر الضرورية لصحة المخ مثل حمض الفوليك – فيتامين هـ - فيتامين جـ - فيتامين ب6 وب12 ومعدن السيلينيوم .
+				الاندماج بالمجتمع و ممارسة النشاطات التي تحفز الخلايا الدماغية و تجنب العزلة . 
+				يجب على المريض عدم ممارسة أي من النشاطات التي تتطلب التركيز و اتخاذ القارارات السريعة و منها قيادة السيارة . 
+				مع تأخر الحالة يصبح من الضروري لمريض الزهايمر أن يكون تحت رعاية يومية تامة ومتكاملة نظرًا لخطورة تركه بمفرده .
+				 </article>
+				   <img src="img/ilejZahaymar.jpg" alt="ilejZahaymar"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej10">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج التهاب الكبد</h1>
+				 <article>
+                   <p>قد يشمل علاج التهاب الكبد التدابير التالية:</p>
+					- عملية جراحية لازالة الجزء المصاب من الكبد.<br>
+					- وصف ادوية لعلاج العدوى الفيروسية.<br>
+					- وصف ادوية لتقوية المناعة.<br>
+				 </article>
+				 <h1>التعايش مع التهاب الكبد</h1>
+				 <article>
+                  - شرب كميات وافرة من السوائل حيث ينصح بشرب ما يعادل لتر ونصف من الماء يوميا الا في حال وجود موانع يحددها الطبيب.<br>
+					- ممارسة التمارين الرياضية بما يعادل ساعتين اسبوعياً على الاقل.<br>
+					- تناول طعام صحي ومتوازن يحوي جميع العناصر الغذائية.<br>
+					- التقليل من الأطعمة الدهنية. <br>
+					- المحافظة على النظافة الشخصية.<br>
+				 </article>
+				   <img src="img/ilejiltihebkabed.jpg" alt="ilejiltihebkabed"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej11">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج عسر الهضم</h1>
+				 <article> 
+				<p> يعتمد علاج عسر الهضم على : </p>
+				- توصية المريض بغيير عاداته الغذائية للتخفيف من حدة وتكرار عسر الهضم . <br>
+				- العلاجات الدوائية كمضادات الحرقة , المضادات الحيوية وتلك التي تخفف من حدة التوتر اعتماداً على حالة المريض <br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب عسر الهضم</h1>
+				 <article>
+				    (Famotidine) فاموتدين<br>
+					(Cimetidine) سيميتيدين<br>
+					(Ranitidine) رانتدين<br>
+					(Aluminium Hydroxide & Magnesium Carbonate Coprecipitate & Magnesium Hydroxide) المنيوم هيدروكسيد مع كربونات المغنيسيوم مع هيدروكسيد المغنيسيوم<br>
+				 </article>
+				   <img src="img/osoralhadhem3.jpg" alt="osoralhadhem"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej12">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج صداع التوتر</h1>
+				 <article>
+					لعلاج هذا المرض يضطر الطبيب لإستعمال احد التدابير التالية :
+					بعض الأدويه التي تعمل على تخفيف الألم 
+					بعض العلاجات غير الدوائية مثل الاستلقاء والاسترخاء
+				 </article>
+				 <h1>الأدوية المتعلقة ب صداع التوتر</h1>
+				 <article> 
+				 <p>يُعالَج الصداع التوتري بمسكنات الالم التي تباع دون وصفة طبية ومنها
+					الاسيتامينوفن او المعروف بالباراستامول Acetaminophen (Paracetamol)
+					مضادات الالتهاب الغير ستيرويدية منها :</p>
+
+					-Ibuprofen ( ايبوبروفين ) .<br>
+					- Naproxen ( نابروكسين )<br>
+					- Aspirine أسبرين <br>
+					او ادوية مركبة منها مع الكافيين<br>
+
+					<p/>وهناك ادوية معالجة ولكنها تحتاج لوصفة طبية من الطبيب مثل</p>
+					مرخيات العضلات مثل tizanidine<br>
+					مسكنات الالم المخدرة مثل CODIEN<br>
+
+					<p>وقد يقوم الطبيب بوصف بعض الادوية التي تؤخذ يوميا كوقاية من نوبات الصداع التوتري في الحالات المستعصية والمزمنة منها :</p>
+					مثبط استرداد السيروتونين الانتقائي( paroxetine ) <br>
+					مضادات الاختلاج Topiramate<br>
+					مضادات الاكتئاب الثلاثية الحلقات amitriptyline ويعتبر الاميبتراليني من اكثر االدوية شيوعا للوقاية من صداع التوتري , <br>
+					حاصرات البيتا مثل البروبانولول 
+
+					<p>قد يحقن الطبيب مادة البوتوكس في عضلات التي تتشنج وتتقلص مع الصداع التوتري حتى يريحها ويرخيها.</p>
+				 </article>
+				   <img src="img/sousaTawator3.jpg" alt="sousaTawator"  width="100%">
+            </div>
+             <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej13">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج صرع</h1>
+				 <article>
+                 <p> من الإجراءات العلاجية المتبعة للمرض :</p>
+					إن علاج الصرع يشمل على السيطرة على وضع المريض والمحاولة قدر الامكان منع حدوث نوبات للمريض ، ويوجد علاجات دوائية تقوم بالسيطره على الإشارات العصبية لمنع حدوث تلك النوبات .<br>
+					قد يحتاج الطبيب في بعض المراحل المتقدمة من إجراء علميات جراحية والجدير بالذكر ان اتباع هذا الإجراء العلاجي ليس بالأمر الذي يمكن إجراؤه بسهولة .<br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب صرع</h1>
+				 <article> 			 
+				(Thiopental) ثيوبنتال<br>
+				(Diazepam) ديازبام<br>
+				(Clorazepate) كلوزبيت<br>
+				(Phenobarbital) فينوباربيتال<br>
+				(Felbamate) فلباميت<br>
+				(Valproic acid) فالبوريك اسيد<br>
+				(Vigabatrin) فيجاباترين<br>
+				(pregabalin) بريجابالين<br>
+				(Tiagabine) تيجابين<br>
+				(Carbamazepine) كاربمزابين<br>
+				(Oxcarbazepine) اوكس كاربزبين<br>
+				(Topiramate) توبيراميت<br>
+				(Gabapentin) جابابينتين<br>
+				(Ethotoin) ايثوتوين<br>
+				(Phenytoin) فينيتوين<br>
+				(Fosphenytoin) فوسفنتوين<br>
+				(Trimethadione) تريميثاديون<br>
+				(Paramethadione) باراميثدوين<br>
+				(Levetiracetam) ليفيتيراسيتام<br>
+				(Ethosuximide) ايثوسكسيميد<br>
+				(Acetazolamide) اسيتازولامايد<br>
+				(Clonazepam) كلونازيبام<br>
+				 </article>
+				   <img src="img/saraa3.jpg" alt="saraa"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej14">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج صلع</h1>
+				 <article> 
+				 <p>غالبا لا يسبب الصلع الحرج عند الذكور مثل الاناث حيث يمكن ان يلجأ كلاهما:</p>
+					- لزراعة الشعر<br>
+					- خياطة الشعر بفروة الراس<br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب صلع</h1>
+				 <article> 
+				  <p>قد يصف الطبيب بعض العلاجات للصلع ومنها:</p>
+					-فيناسترايد للذكور<br>
+					- مينوكسيديل للذكور والاناث<br>
+					-سبيرونولاكتون للاناث <br>
+				 </article>
+				   <img src="img/solo3.jpg" alt="solo"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej15">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج قصور القلب</h1>
+				 <article>
+                  <p> لا يوجد علاج شامل لهذا المرض ولكن هنالك بعض التدابير لزياده كفاءة و قدرة عضلة القلب على العمل وذلك يشمل علاج المسبب الأساسي لذلك الفشل أو القصور 
+					وبعض العلاجات الدوائية .</p>
+					- قد يحتاج الطبيب الى إجراء تدخل جراحي في بعض الأحيان ، و منها الحالات التي تستدعي استبدال صمامات القلب المُتسببة في فشل القلب .<br>
+					- قد يحتاج الطبيب الى زرع مضخة للقلب في حال تقدم المرض وفشل العلاجات الدوائية و أجهزة تنظم ضربات القلب . <br>
+					- مُثبطات الأنزيم المحول للأنجيوتنسين ( ACEI) التي تحفز اتساع الأوعية الدموية وانخفاض ضغط الدم وتخفيف الجهد على عضلة القلب ،و  مُحصرات مُستقبلات الأنجيوتنسين 2 (ARBs ) .<br>
+					- مُحصرات البيتا ( Beta blocker ) التي تبطيء من سرعة نبض القلب , تُقلل ضغط الدم وتحد من تضرر عضلة القلب .<br>
+					- مُدرات البول للحد من تراكم السوائل في الجسم .<br>
+				 </article>
+				 <h1>الأدوية المتعلقة ب قصور القلب</h1>
+				 <article>
+				 (Atenolol) اتنولول<br>
+				(Dobutamine) دوبوتامين<br>
+				(Metoprolol) ميتوبرولول<br>
+				(Carvedilol) كارفيدلول<br>
+				(Captopril) كابتوبريل<br>
+				(Enalapril) انالابريل<br>
+				(Lisinopril) ليسينوبريل<br>
+				(Perindopril) بيرندوبريل<br>
+				(Ramipril) راميبريل<br>
+				(Fosinopril) فوسينوبريل<br>
+				(Trandolapril) تراندولابريل<br>
+				(Moexipril) موكسيبريل<br>
+				(Quinapril) كوانابريل<br>
+				(Candesartan) كانيدسارتان<br>
+				(Digoxin) ديجوكسين<br>
+				(Milrinone) ميلرينون<br>
+				 </article><br>
+				   <img src="img/9osour9aleb3.jpg" alt="9osour9aleb"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                  <center> <p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>          
+            </div>     
+</div>
+<div data-role="page" id="ilej16">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج قشرة الراس</h1>
+				 <article>
+                  يمكن السيطرة على القشرة ا الا علاجها يحتاج قليلا من الوقت , حيث ان تنظيف الراس اليومي بالماء والشامبو يقلل من تراكم خلايا الجلد والزيوت على فروة الراس اما عن انوع الشامبو التي تستخدام للسيطرة على القشرة : 1-الشامبو بيريثيوني الزنك 2- الشامبو القائم على القطران 3-الشامبو كبريتيد السيلينيوم 4-الشامبو الكيتوكونازول 5-شامبو زيت شجرة الشاي او المضافة له حيث تعتبر مطهر ومضاد للفطريات.
+				 </article>
+				 <h1>الأدوية المتعلقة ب قشرة الراس</h1>
+				 <article>
+                (Ketoconazole) كيتوكونازول<br>
+				(Selenium Sulfide) سيلينيوم سلفايد<br>
+				(Coal Tar) قطران الفحم <br>
+				 </article><br>
+				   <img src="img/kichra3.jpg" alt="kichra"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej17">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج رمد ربيعي</h1>
+				 <article>
+                  افضل طروق العلاج هي تجنب المسببات لحدوث التحسس خصوصا في موسم انتشار طلع الاشجار
+				 </article>
+				 <h1>الأدوية المتعلقة ب رمد ربيعي</h1>
+				 <article>
+                  (Cromoglycate) كروموجليكيت<br>
+					(Lodoxamide) لودوكسمايد<br>
+					(Ketorolac) كيتورولاك<br>
+					(diclofenac ophthamic ) ديكلوفيناك للعين<br>
+					(Dexamethasone ophthalmic ) ديكساميثازون للعين<br>
+					(Prednisolone ophthalmic ) بريدنيزولون للعين<br>
+					(Fluorometholone) فلوروميثالون<br>
+					(Hypromellose) هايبروميلوز<br>
+					(epinastine) ابيناستين<br>
+				 </article>
+				 <br>
+				   <img src="img/ramad3.jpg" alt="ramad"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej18">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج سعال ديكي</h1>
+				 <article> 
+				   قد يشمل علاج السعال الديكي استخدام المُضادات الحيوية في الأسابيع الثلاثة الأولى من الاصابة للحد من انتقال العدوى وخاصة للأطفال المُصابين الذين تقل أعمارهم عن 6 أشهر .
+					في حالات التشخيص المتأخرة للسعال الديكي لا يُعد استخدام المُضادات الحيوية مجدياً نظراً لتلاشي البكتيريا بشكل تلقائي .
+					يُدخل الأطفال المصابين الذين تقل أعمارهم عن 6 أشهر للمستشفى لتجنب حدوث المُضاعفات التنفسية المرافقة للعدوى .
+				 </article>
+				 <h1>الأدوية المتعلقة ب سعال ديكي</h1>
+				 <article>
+                    (Erythromycin) اريثرومايسين
+				 </article><br>
+				   <img src="img/soualDiki3.jpg" alt="soualDiki"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                  <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej19">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج السمنة</h1>
+				 <article> 
+				 <p>من الإجراءات العلاجية المتبعة لعلاج السمنة</p>
+				 زيادة النشاط البدني ( بمعدل 30 دقيقة على الأقل يوميا)
+				 اعتماد نظام غذائي صحي غني بالخضراوات والفاكهة والحبوب الكاملة قليل الدهون ،السعرات الحرارية ،السكريات والملح
+				العقاقير الدوائية الحارقة للدهون ( يجب ان تكون باستشارة طبية لوجود الكثير من الأدوية الغير مرخصة والتي يكون لها اثار جانبية)
+				 التدخل الجراحي في حال اسنتفاذ جميع الطرق والحلول،  كجراحة المجازة المعدية التي يتم من خلالها خلق كيس أعلى المعدة حيث تقطع الأمعاء الدقيقة مسافة أقل . - جراحة ربط المعدة بالمنظار . - الاستئصال الجراحي لجزء من المعدة . - الاستئصال الجراحي لكامل المعدة .
+				</article>
+				 <h1>الأدوية المتعلقة ب السمنة</h1>
+				 <article> 
+				 (Orlistat) اورليستات<br>
+				(Phentermine) فنتيرامين<br>
+				(naltrexone) نالتركسون<br>
+				 </article><br>
+				   <img src="img/Simna3.jpg" alt="Simna"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej20">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج سرطان</h1>
+				 <article>
+				 <p>طرق علاج السرطان :</p>
+				- الجراحة<br>
+				- الأشعة العميقة<br>
+				- العلاج الكيماوي<br>
+				- العلاج بالهرمونات<br>
+				- العلاج الحيوي<br>
+				- العلاج المشترك الذي يجمع بين الجراحة والعلاج الكيماوي<br>
+				- زراعة نخاع العظم ويعتمد على نوع السرطان ونوع الخلايا وحجمها وموقعها والمرحلة التي وصل اليها والحالة الصحية العامة وقابلية المريض على تقبل العلاج.<br>
+                 </article>
+				 <h1>الأدوية المتعلقة ب سرطان</h1>
+				 <article>
+                 (Disodium Folinate) ثنائي الصوديوم الفولينيت
+				 </article><br>
+				   <img src="img/salatan3.jpg" alt="salatan"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="ilej21">
+            <div data-role="header">
+              <h1>صحتي </h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>               
+            </div>
+            <div data-role="main" class="ui-content">                
+                 <h1>علاج السكري</h1>
+				 <article>
+                   قد يشمل علاج السكري عدد من التدابير اعتماداً على نمطه كالتالي :</p>
+					<p>* النمط الأول :</p>
+					- العلاج الهرموني التعويضي لهرمون الانسولين .
+					<p>* النمط الثاني :</p>
+					- العقاقير الدوائية لخفض مستوى الغلوكوز .
+					<p>* النمط الحملي :</p>
+					- لا يتوفر علاج مُحدد لهذا النمط لاختفاء علاماته بعد الولادة الا أنه يُوصى بضرورة الحفاظ على الوزن الصحي وتناول الوجبات الغذائية قليلة الشحوم والسعرات الحرارية وممارسة التمارين الرياضية بشكل منتظم .
+				</article>
+				 <h1>الأدوية المتعلقة ب السكري</h1>
+				 <article> 
+				    (Insulin Aspart) الانسولين اسبارت<br>
+					(Insulin Detemir) الانسولين ديتيمر<br>
+					(Insulin Glargine) الانسولين غلارجين<br>
+					(Insulin Glulisine) الانسولين غلوسيلين<br>
+					(Regular Insulin) انسولين منتظم<br>
+					(Insulin Lispro) الانسولين ليسبرو<br>
+					(Insulin NPH) الانسولين المتجانس<br>
+					(Tolbutamide) تولبوتاميد<br>
+					(Acetohexamide) اسيتوهيكساميد<br>
+					(Tolazamide) تولازاميد<br>
+					((Glyburide (Glibenclamide) غليبوريد غليبينكلاميد<br>
+					(Glipizide) غليبيزيد<br>
+					(Glimepiride) غليمبريد<br>
+					(Metformin) ميتفورمين<br>
+					(pioglitazone) بيوغليتازون<br>
+					(Rosiglitazone) روزيغليتازون<br>
+					(Sitagliptin phosphate monohydrate) سيتاجليبتين<br>
+				 </article><br>
+				   <img src="img/sokari3.jpg" alt="sokari"  width="100%">
+            </div>
+            <div data-role="footer" data-position="fixed">                 
+                   <center><p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>           
+            </div>     
+</div>
+<div data-role="page" id="calculator">
+            <div data-role="header">
+              <h1>صحتي</h1>
+                    <a href="#nav-panel" data-icone="bars" data-iconpos="" class="ui-link ui-btn-right ui-btn ui-shadow ui-corner-all">صحتي</a>                     
+            </div>
+            <div data-role="main" class="ui-content">
+                    
+                 <p>أدخل طولك (طول القامة) :<input type="text" id="height"/>
+                        <select type="multiple" id="heightunits">
+                            <option value="metres" selected="selected">سم</option>
+                            <option value="inches">بوصة</option>
+                        </select>
+                         </p>
+                    <p>أدخل وزنك : <input type="text" id="weight"/>
+                        <select type="multiple" id="weightunits">
+                            <option value="kg" selected="selected">كيلوغرام</option>
+                            <option value="lb">رطل</option>
+                        </select>
+                    </p>
+                    <input type="submit" value=" أحسب" onclick="computeBMI();">
+                    <h2>تقييم الوزن الطبيعي أو زيادة الوزن : <span id="output"> ...</span></h2>
+
+                    <h2>وهذا يعني  : <span id="comment">... </span> </h2> 
+            </div>
+            <div data-role="footer" data-position="fixed">             
+                    <center> <p>حقوق النشر محفوظة لفائدة رافت الجمالي © 2016</p></center>   
+            </div>     
+     </div>
+
+</body>
+</html>
